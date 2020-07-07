@@ -172,13 +172,13 @@ module.exports = class Route extends Model {
         this.profitFactor = this.profitFactorX + this.profitFactorY + this.profitFactorZ;
 
         this.deltaChain[0].setInput(this.deltaChain[2].output);
-        this.deltaChain[0].priceDeviation = this.profitFactor*this.profitFactor*this.profitFactor;
+        this.deltaChain[0].priceDeviation = this.profitFactor/2;
         this.deltaChain[0].calculate();
         this.deltaChain[1].setInput(this.deltaChain[0].output);
-        this.deltaChain[1].priceDeviation = this.profitFactor*this.profitFactor*this.profitFactor;
+        this.deltaChain[1].priceDeviation = this.profitFactor/2;
         this.deltaChain[1].calculate();
         this.deltaChain[2].setInput(this.deltaChain[1].output);
-        this.deltaChain[2].priceDeviation = this.profitFactor*this.profitFactor*this.profitFactor;
+        this.deltaChain[2].priceDeviation = this.profitFactor/2;
         this.deltaChain[2].calculate();
 
         this.profitX = (this.deltaChain[2].output - this.deltaChain[0].input);
