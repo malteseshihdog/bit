@@ -59,7 +59,6 @@ module.exports = class Delta extends Model {
     }
 
     getOuput() {
-        this.priceDeviation = this.priceDeviation || Delta.config('priceDeviation') || 0;
         if (Delta.config('speculate')) {
             return this.output = this.market.convertPotential(this.outputCurrency, this.input, this.getPrice());
         } else {
