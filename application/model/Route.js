@@ -154,10 +154,13 @@ module.exports = class Route extends Model {
 
     calculate() {
         this.deltaChain[0].setInput(Currency.getBtc().convertTo(this.currencyX, this.getInputBtc()));
+        this.deltaChain[0].priceDeviation = 0;
         this.deltaChain[0].calculate();
         this.deltaChain[1].setInput(this.deltaChain[0].output);
+        this.deltaChain[1].priceDeviation = 0;
         this.deltaChain[1].calculate();
         this.deltaChain[2].setInput(this.deltaChain[1].output);
+        this.deltaChain[2].priceDeviation = 0;
         this.deltaChain[2].calculate();
 
         this.profitX = (this.deltaChain[2].output - this.deltaChain[0].input);
