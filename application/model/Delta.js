@@ -40,7 +40,7 @@ module.exports = class Delta extends Model {
     }
 
     getPrice() {
-        this.priceDeviation = Delta.config('priceDeviation') || 0;
+        this.priceDeviation = this.priceDeviation || Delta.config('priceDeviation') || 0;
         if (Delta.config('speculate')) {
             this.price = this.market.getPotentialPrice(this.outputCurrency, this.priceDeviation);
         } else {
@@ -54,16 +54,16 @@ module.exports = class Delta extends Model {
         return Number.parseFloat(this.price).toFixed(this.market.getPrecision());
     }
 
-    getInput() {
-        return this.input = Currency.getBtc().convertTo(this.inputCurrency, this.route.getInputBtc());
+    setInput(input) {
+        return this.input = input;
     }
 
     getOuput() {
-        this.priceDeviation = Delta.config('priceDeviation') || 0;
+        this.priceDeviation = this.priceDeviation || Delta.config('priceDeviation') || 0;
         if (Delta.config('speculate')) {
-            return this.output = this.market.convertPotential(this.outputCurrency, this.getInput(), this.getPrice());
+            return this.output = this.market.convertPotential(this.outputCurrency, this.input, this.getPrice());
         } else {
-            return this.output = this.market.convert(this.outputCurrency, this.getInput(), this.getPrice());
+            return this.output = this.market.convert(this.outputCurrency, this.input, this.getPrice());
         }
     }
 
