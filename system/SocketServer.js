@@ -1,7 +1,8 @@
 var io = require('socket.io');
 var Configurable = require('./Configurable.js');
+var WebServer = require('./WebServer.js');
 var Controller = require('./Controller.js');
-var WebServer = require('./WebServer')
+var fs = require('fs');
 
 module.exports = class SocketServer extends Configurable {
 
@@ -29,8 +30,11 @@ module.exports = class SocketServer extends Configurable {
     }
 
     static start() {
-        SocketServer.server = io(WebServer.config('https') ? WebServer.httpsServer : WebServer.httpServer);
-        SocketServer.server.secure = WebServer.config('https');
+        SocketServer.server = io();
+        SocketServer.listen(SocketServer.getPort());
+        SocketServer.server.listen(SocketServer.getPort());
+        SocketServer.server.on('connection', SocketServer.route);
+        console.log('Socket server avaialbe to serve through port: ' + SocketServer.getPort());
     }
 
     static listen() {
