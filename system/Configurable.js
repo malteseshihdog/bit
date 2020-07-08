@@ -8,13 +8,11 @@ const writeFile = util.promisify(fs.writeFile);
 
 module.exports = class Configurable {
 
-    static initialized = false;
     static configFileName = './config/config.json';
     static configTiggers = [];
     static configuration = {};
 
     constructor() {
-        
         Configurable.initConfig();
     }
 
@@ -26,12 +24,9 @@ module.exports = class Configurable {
      * @returns {undefined}
      */
     static async initConfig(fileName, callback) {
-        if(Configurable.initizialed === false) {
-            fileName = fileName || Configurable.configFileName;
-            await Configurable.getConfigFile(fileName, callback);
-            Configurable.watchConfigFile();
-            Configurable.initialized = true;
-        }
+        fileName = fileName || Configurable.configFileName;
+        await Configurable.getConfigFile(fileName, callback);
+        Configurable.watchConfigFile();
     }
     
     /**
@@ -77,6 +72,26 @@ module.exports = class Configurable {
                 }, 1000);
             }
         });
+    }
+
+    /**
+     * Get config for class
+     * 
+     * @param {String} property Property name
+     * @returns {Number|String|Array|Boolean|Object|Null}
+     */
+    config(property) {
+        return Configurable.getConfig(this.constructor.toString())[property] || null;
+    }
+    
+    /**
+     * Get config for class
+     * 
+     * @param {String} property Property name
+     * @returns {Number|String|Array|Boolean|Object|Null}
+     */
+    static config(property) {
+        return Configurable.getConfig(this.name)[property] || null;
     }
 
 };
