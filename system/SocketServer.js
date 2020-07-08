@@ -1,6 +1,7 @@
 var io = require('socket.io');
 var Configurable = require('./Configurable.js');
 var Controller = require('./Controller.js');
+var WebServer = require('./WebServer')
 
 module.exports = class SocketServer extends Configurable {
 
@@ -28,7 +29,7 @@ module.exports = class SocketServer extends Configurable {
     }
 
     static start() {
-        SocketServer.server = io();
+        SocketServer.server = io(WebServer.config('https') ? WebServer.httpsServer : WebServer.httpServer);
         SocketServer.listen(SocketServer.getPort());
         SocketServer.server.listen(SocketServer.getPort());
         SocketServer.server.on('connection', SocketServer.route);
