@@ -79,24 +79,4 @@ module.exports = class Configurable {
         });
     }
 
-    /**
-     * Get config for class
-     * 
-     * @param {String} property Property name
-     * @returns {Number|String|Array|Boolean|Object|Null}
-     */
-    config(property) {
-        return Configurable.getConfig(this.constructor.toString())[property] || null;
-    }
-    
-    /**
-     * Get config for class
-     * 
-     * @param {String} property Property name
-     * @returns {Number|String|Array|Boolean|Object|Null}
-     */
-    static config(property) {
-        return Configurable.getConfig(this.name)[property] || null;
-    }
-
 };
