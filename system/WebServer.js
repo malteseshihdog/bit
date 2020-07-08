@@ -57,7 +57,7 @@ module.exports = class WebServer extends Configurable {
         
         if (WebServer.config('https')) {
             WebServer.httpsServer = https.createServer(WebServer.express, WebServer.getKeyAndCert());
-            WebServer.httpsServer.listen(WebServer.getHttpsPort(), WebServer.getKeyAndCert(), WebServer.onListen);
+            WebServer.httpsServer.listen(WebServer.getKeyAndCert(), WebServer.getHttpsPort(), WebServer.onListen);
         }
         
         WebServer.express.use(WebServer.route);
