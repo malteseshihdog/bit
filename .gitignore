@@ -4,9 +4,4 @@ config/config.json
 /nbproject/
 /log/
 package-lock.json
-tradelog
-errorlog
-/tradelog
-/errorlog
-./errorlog*
-./tradelog*
+/ssl/
