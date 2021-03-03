@@ -1,15 +1,16 @@
 var fs = require('fs');
 var util = require('util');
 var Configurable = require('./Configurable.js');
+var ejs = require('ejs');
 
 var existsSync = util.promisify(fs.existsSync);
 
 module.exports = class Controller extends Configurable {
 
-    static render(view, response, callback) {
-        fs.readFile('./application/view/' + view, 'utf8', (error, data) => {
-            if (data) {
-                response.send(data);
+    static render(view, response, viewData, callback) {
+        fs.readFile('./application/view/' + view + '.ejs', 'utf8', (error, fileData) => {
+            if (fileData) {
+                response.send(ejs.render(fileData, viewData));
             }
             if (error) {
                 response.send(error);
@@ -24,7 +25,6 @@ module.exports = class Controller extends Configurable {
         var controllerName;
         var actionName;
         var controllerPath;
-        console.log(uriParts);
         if (uriParts[1]) {
             controllerName = (uriParts[1].charAt(0).toUpperCase()) + (uriParts[1].slice(1)) + 'Controller';
         } else {
@@ -36,19 +36,13 @@ module.exports = class Controller extends Configurable {
             actionName = 'actionIndex';
         }
         var controllerPath = './application/controller/' + controllerName + '.js';
-
-        console.log(controllerName, actionName, controllerPath);
-
         if (fs.existsSync(controllerPath)) {
             var controller = require('.' + controllerPath);
             if (controller && controller[actionName] && typeof controller[actionName] === 'function') {
                 controller[actionName](uriParts, request, response);
                 return true;
             }
-        } else {
-            return false;
         }
-        console.log('File does not exist.');
         return false;
     }
 
@@ -63,7 +57,7 @@ module.exports = class Controller extends Configurable {
         var actionName = 'socket' + (packet[1].charAt(0).toUpperCase()) + (packet[1].slice(1));
         var controllerPath = './application/controller/' + controllerName + '.js';
         console.log(actionName, controllerPath);
-         if (fs.existsSync(controllerPath)) {
+        if (fs.existsSync(controllerPath)) {
             var controller = require('.' + controllerPath);
             if (controller && controller[actionName] && typeof controller[actionName] === 'function') {
                 controller[actionName](socket, packet);
@@ -75,5 +69,5 @@ module.exports = class Controller extends Configurable {
         socket.emit('request not found.');
         return false;
     }
-    
+
 };

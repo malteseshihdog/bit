@@ -1,0 +1,55 @@
+* {
+    font-family: sans-serif;
+    color: #FFF;
+}
+
+h1 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #61FCA1;
+    text-align: center;
+
+}
+h2 {
+    color: #FC61A1;
+    font-size: 36px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+h3 {
+    color: #FC61A1;
+    font-size: 28px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+h4 {
+    color: #FC61A1;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+h5 {
+    color: #FC61A1;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+h6 {
+    color: #FC61A1;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.profit {
+    color: #61FCA1;
+}
+.loss {
+    color: #FC61A1;
+}
+.text-center {
+    text-align: center;
+}
+.text-justify {
+    text-align: justify;
+}

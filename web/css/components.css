@@ -1,0 +1,19 @@
+header.large {
+    padding-top: 15%;
+    padding-bottom: 15%;
+}
+header.large .background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+header.large .background #headerCanvas {
+    opacity: 0.5;
+    position: fixed;
+}
+header.large h1 {
+    font-size: 72px;
+}

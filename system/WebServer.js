@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var http = require('http');
 var https = require('https');
 var Configurable = require('./Configurable.js');
@@ -59,7 +60,9 @@ module.exports = class WebServer extends Configurable {
             WebServer.httpsServer = https.createServer(WebServer.express, WebServer.getKeyAndCert());
             WebServer.httpsServer.listen(WebServer.getKeyAndCert(), WebServer.getHttpsPort(), WebServer.onListen);
         }
-        
+        WebServer.express.set('view engine', 'ejs');
+        WebServer.express.use(bodyParser.urlencoded({ extended: false }));
+        WebServer.express.use(bodyParser.json());
         WebServer.express.use(WebServer.route);
     }
 
