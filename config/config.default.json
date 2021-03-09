@@ -52,7 +52,8 @@
         "host": "localhost",
         "protocol": "http",
         "baseController" : "Landing",
-        "fileDirectory" : "./web"
+        "fileDirectory" : "./web",
+        "sessionHash" : "00211a4ba61c8363f7adf5e9bc0e7832" 
     },
     "SocketServer": {
         "port": 8080,
@@ -70,5 +71,11 @@
     },
     "OrderBook" : {
         "updateInterval" : 333
+    },
+    "Database" : {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": ""
     }
 }

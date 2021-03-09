@@ -4,7 +4,11 @@ var ejs = require('ejs');
 
 module.exports = class PageController extends Controller {
 
-    static templateView = 'template/base';
+    static templateView = 'template/landing';
+
+    static isAuthenticated(request) {
+        return !(!request.session.userId);
+    }
 
     static render(view, response, viewData, callback) {
         fs.readFile('./application/view/' + this.templateView + '.ejs', 'utf8', (error, templateFileData) => {

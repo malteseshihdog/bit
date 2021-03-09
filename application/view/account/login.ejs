@@ -1,1 +1,37 @@
-
+<section class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 push-6">
+                <div class="row heading">
+                    <div class="col-2 icon">
+                        <img src="/icon.png" class="responsive">
+                    </div>
+                    <div class="col-21 title">
+                        <h2>LOGIN</h2>
+                    </div>
+                </div>
+                <div class="row content">
+                    <div class="col-24">
+                        <form method="post" action="/account/login">
+                            <% if(loginError) { %>
+                                <div class="row">
+                                    <span class="error">Invalid login.</span>
+                                </div>    
+                            <% } %>
+                            <div class="row">
+                                <input class="col-24" type="text" name="username" placeholder="email">
+                            </div>
+                            <div class="row">
+                                <input class="col-24" type="password" name="password" placeholder="password">
+                            </div>
+                            <div class="row">
+                                <input class="col-24 button green" type="submit" value="login">
+                                <a class="col-24 button" type="submit">Forgot password</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

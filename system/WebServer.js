@@ -1,4 +1,5 @@
 var express = require('express');
+var expressSession = require('express-session');
 var bodyParser = require('body-parser');
 var http = require('http');
 var https = require('https');
@@ -61,6 +62,7 @@ module.exports = class WebServer extends Configurable {
             WebServer.httpsServer.listen(WebServer.getKeyAndCert(), WebServer.getHttpsPort(), WebServer.onListen);
         }
         WebServer.express.set('view engine', 'ejs');
+        WebServer.express.use(expressSession({secret: WebServer.config('sessionHash'),saveUninitialized: true,resave: true}));
         WebServer.express.use(bodyParser.urlencoded({ extended: false }));
         WebServer.express.use(bodyParser.json());
         WebServer.express.use(WebServer.route);

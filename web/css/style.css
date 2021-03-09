@@ -1,10 +1,30 @@
+header.large {
+    padding-top: 15%;
+    padding-bottom: 15%;
+}
+#background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+#headerCanvas {
+    opacity: 0.5;
+    position: fixed;
+    box-shadow: inset 0px 250px 250px 0px rgba(0,0,0,0.25);
+}
+header.large h1 {
+    font-size: 72px;
+}
 .profit {
     color: #61FCA1;
 }
 .loss {
     color: #FC61A1;
 }
-.container {
+.page .container {
     max-width: 1200px;
     margin: auto;
     padding: 30px;
@@ -20,4 +40,45 @@
 
 body {
     background: #192341;
+}
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    background: #192341;
+}
+nav [class*="col-"] {
+    text-align: center;
+}
+nav a {
+    color: #FFF;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+nav img.responsive {
+    height: 16px;
+    width: auto;
+}
+section.login {
+    margin-top: 10%;
+}
+section.login .heading {
+    background: rgba(0,0,0,0.1);
+    padding: 20px;
+}
+section.login .content {
+    background: rgba(25, 35, 65 ,0.95);
+    padding: 20px;
+}
+
+section.login .icon {
+    text-align: center;
+}
+section.login .title h2 {
+    color: #61FCA1;
+    font-size: 16px;
+    margin: 17px;
 }

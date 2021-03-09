@@ -1,19 +1,34 @@
-header.large {
-    padding-top: 15%;
-    padding-bottom: 15%;
+
+
+img.responsive {
+    width: 100%;
+    height: auto;
 }
-header.large .background {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
+
+input {
+    padding: 10px;
+    background: rgba(0,0,0,0.1);
+    border: rgba(255,255,255,0.2) 1px solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
-header.large .background #headerCanvas {
-    opacity: 0.5;
-    position: fixed;
+input[type="submit"] {
+
 }
-header.large h1 {
-    font-size: 72px;
+
+.button {
+     padding: 10px;
+    background: rgba(0,0,0,0.1);
+    border: rgba(255,255,255,0.2) 1px solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    border: #61FCA1 1px solid;
+}
+.button.green {
+    background: rgba(97, 252, 161,0.5);
 }

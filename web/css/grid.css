@@ -1,3 +1,7 @@
+.container {
+    width: 100%;
+    margin: auto;
+}
 .clear:after {
     clear: both;
     display: block;
@@ -418,6 +422,9 @@
     }
 }
 @media screen and (min-width: 480px) {
+    .container {
+        width: 460px;
+    }
     .col-s-auto {
         width: auto;
     }
@@ -651,6 +658,9 @@
     }
 }
 @media screen and (min-width: 768px) {
+    .container {
+        width: 740px;
+    }
     .col-m-auto {
         width: auto;
     }
@@ -884,6 +894,10 @@
     }
 }
 @media screen and (min-width: 1024px) {
+    .container {
+        width: 1000px;
+    }
+    
     .col-l-auto {
         width: auto;
     }
@@ -1117,6 +1131,10 @@
     }
 }
 @media screen and (min-width: 1280px) {
+    .container {
+        width: 1200px;
+    }
+    
     .col-xl-auto {
         width: auto;
     }

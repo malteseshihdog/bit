@@ -11,7 +11,6 @@ module.exports = class File extends Configurable {
     static async serve(request, response) {
         var filePath = File.getWebDirectory() + request.originalUrl;
         if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
-            console.log('serve file: ' + filePath);
             fs.readFile(filePath, (error, data) => {
                 if (error) {
                     console.log(filePath, error);
