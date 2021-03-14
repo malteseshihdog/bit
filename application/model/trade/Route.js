@@ -1,8 +1,8 @@
-var Model = require('../../system/Model.js');
+var Model = require('../../../system/Model.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 var Delta = require('./Delta.js');
-var Util = require('../../system/Util.js');
+var Util = require('../../../system/Util.js');
 
 /**
  * Route logic

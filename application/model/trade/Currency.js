@@ -1,5 +1,6 @@
-var Model = require('../../system/Model.js');
-var Bittrex = require('../../exchange/bittrex/Bittrex.js');
+var Model = require('../../../system/Model.js');
+var Bittrex = require('../../../exchange/bittrex/Bittrex.js');
+var Binance = require('../../../exchange/binance/Binance.js');
 
 module.exports = class Currency extends Model {
 
@@ -20,7 +21,7 @@ module.exports = class Currency extends Model {
      * @property {Array|Currency[]} list
      */
     static list = [];
-    
+
     /**
      * @property {String} symbol 
      */
@@ -85,6 +86,29 @@ module.exports = class Currency extends Model {
      * @returns {undefined}
      */
     static async getAll() {
+        Currency.getBinance();
+    }
+
+    static async getBinance() {
+        Binance.balance((error, balances) => {
+            if (error) {
+                console.error(error);
+            } else {
+                for (var symbol in balances) {
+                    var currency = new Currency({
+                        symbol: symbol
+                    });
+                    Currency.list.push(currency);
+                }
+            }
+        },
+        {
+            "options": {"adjustForTimeDifference": true}
+        }
+        );
+    }
+
+    static async getBittrex() {
         let currencies = await Bittrex.currencies();
         for (var i in currencies) {
             var currency = new Currency(currencies[i]);

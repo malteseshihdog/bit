@@ -43,6 +43,10 @@
         "apisecret": "",
         "subaccountid": ""
     },
+    "Binance": {
+        "APIKEY": "",
+        "APISECRET": ""
+    },
     "View": {
         "refreshRate": 250,
         "routes" : 15

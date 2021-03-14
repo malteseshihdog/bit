@@ -10,9 +10,9 @@ var SocketServer = require('./system/SocketServer.js');
 WebServer.init();
 SocketServer.init();
 
-//setTimeout(() => {
-//var ArbitrageController = require('./application/controller/ArbitrageController.js');
-//ArbitrageController.Arbitrage.start();
-//}, 1000);
+setTimeout(() => {
+var ArbitrageController = require('./application/controller/ArbitrageController.js');
+ArbitrageController.Arbitrage.start();
+}, 1000);
 
 // init socket server

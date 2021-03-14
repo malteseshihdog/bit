@@ -1,8 +1,9 @@
-var Model = require('../../system/Model.js');
+var Model = require('../../../system/Model.js');
 var Trade = require('./Trade.js');
 var OrderBook = require('./OrderBook.js');
 var Currency = require('./Currency.js');
-var Bittrex = require('../../exchange/bittrex/Bittrex.js');
+var Bittrex = require('../../../exchange/bittrex/Bittrex.js');
+var Binance = require('../../../exchange/binance/Binance.js');
 
 module.exports = class Market extends Model {
 
@@ -88,13 +89,30 @@ module.exports = class Market extends Model {
      * 
      * @returns {undefined}
      */
-    static async getAll() {
+    static async getBittrex() {
         let markets = await Bittrex.markets();
         for (var i in markets) {
             if (!Market.getBySymbol(Market.symbol)) {
                 Market.push(new Market(markets[i]));
             }
         }
+    }
+    
+    static async getBinance() {
+            let prices = await Binance.prices();
+            for(var symbol in prices) {
+                if (!Market.getBySymbol(symbol)) {
+//                    var market = new Market();
+//                    market.symbol = symbol;
+                    console.log(prices);
+                    Market.push(market);
+                }
+                console.log(Market.list);
+            }
+    }
+
+    static async getAll() {
+        Market.getBinance();
     }
 
     /**

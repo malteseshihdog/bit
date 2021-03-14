@@ -1,4 +1,4 @@
-var Model = require('../../system/Model.js');
+var Model = require('../../../system/Model.js');
 
 
 module.exports = class Arbitrage extends Model {
@@ -14,21 +14,28 @@ module.exports = class Arbitrage extends Model {
     static initialized = false;
 
     static async start() {
-//        if(Arbitrage.initialized === false) {
-//            Arbitrage.initialized = true;
-//            console.log('Initializing Arbitrages...');
-//
-//            await Arbitrage.Currency.init();
-//            await Arbitrage.Market.init();
+        if(Arbitrage.initialized === false) {
+            Arbitrage.initialized = true;
+            console.log('Initializing Arbitrages...');
+
+            setTimeout(function(){
+                Arbitrage.Currency.init();
+                
+            }, 500);
+            setTimeout(function(){
+                Arbitrage.Market.init();
+                
+            }, 1000);
+            
 //            await Arbitrage.OrderBook.init();
-//            await Arbitrage.Balance.init();
+         //   await Arbitrage.Balance.init();
 //            await Arbitrage.Order.init();
-//
+
 //            setTimeout(() => {
 //                console.log('Initializing Routes...');
 //                Arbitrage.Route.init();
 //            }, 5000);
-//        }
+        }
     }
 
     static consoleOutput() {

@@ -1,7 +1,8 @@
-var Model = require('../../system/Model.js');
+var Model = require('../../../system/Model.js');
 var Currency = require('./Currency.js');
-var Bittrex = require('../../exchange/bittrex/Bittrex.js');
-var Util = require('../../system/Util.js');
+var Bittrex = require('../../../exchange/bittrex/Bittrex.js');
+var Binance = require('../../../exchange/binance/Binance.js');
+var Util = require('../../../system/Util.js');
 
 module.exports = class Balance extends Model {
 
@@ -15,6 +16,7 @@ module.exports = class Balance extends Model {
     currencySymbol = '';
     total = 0;
     available = 0;
+    onOrder = 0;
     updatedAt = null;
     currency = null;
 
@@ -42,11 +44,36 @@ module.exports = class Balance extends Model {
      * Get balances from bittrex
      * @returns {undefined}
      */
-    static async getAll() {
+    static async getBittrex() {
         Balance.getting = true;
         let balances = await Bittrex.balances();
         Balance.update(balances);
         Balance.getting = false;
+    }
+
+
+    static getBinance() {
+        Balance.getting = true;
+        Binance.balance((error, balances) => {
+            if (error) {
+                console.error(error);
+            } else {
+                for (var symbol in balances) {
+                    var balance = balances;
+                    balance.currencySymbol = symbol;
+                    Balance.update(balance);
+                }
+                Balance.isGetting = false;
+            }
+        },
+        {
+            "options": {"adjustForTimeDifference": true}
+        }
+        );
+    }
+    
+    static getAll() {
+        Balance.getBinance();
     }
 
     /**
@@ -341,7 +368,7 @@ module.exports = class Balance extends Model {
      */
     consoleOutput() {
         return "<td>" + ([
-            "<img src=\"" + this.getCurrency().logoUrl + "\"/> " +this.currencySymbol + ""
+            "<img src=\"" + this.getCurrency().logoUrl + "\"/> " + this.currencySymbol + ""
                     , Util.pad(this.total)
                     , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)

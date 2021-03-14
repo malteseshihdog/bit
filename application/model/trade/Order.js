@@ -1,8 +1,8 @@
-var Model = require('../../system/Model.js');
-var Bittrex = require('../../exchange/bittrex/Bittrex.js');
+var Model = require('../../../system/Model.js');
+var Bittrex = require('../../../exchange/bittrex/Bittrex.js');
 var Currency = require('./Currency.js');
 var Market = require('./Market.js');
-var Util = require('../../system/Util.js');
+var Util = require('../../../system/Util.js');
 
 module.exports = class Order extends Model {
 
