@@ -6,13 +6,13 @@ function updateArbitrage(data) {
     updateOrders(data.orders);
 }
 function updateRoutes(data) {
-    $('#routes').html(data);
+    $('#routes .routes').html(data);
 }
 function updateBalances(data) {
     $('#balances .balances').html(data);
 }
 function updateTrades(data) {
-    $('#trades').html(data);
+    $('#trades .trades').html(data);
 }
 function updateOrders(data) {
     $('#orders .orders').html(data);

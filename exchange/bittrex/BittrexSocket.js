@@ -31,7 +31,6 @@ module.exports = class BittrexSocket {
     static resolveInvocationPromise = () => { };
     
     static construct(apikey, apisecret, channels, callback) {
-        console.log('innit bittrex socket')
         BittrexSocket.apikey = apikey;
         BittrexSocket.apisecret = apisecret;
         BittrexSocket.channels = channels || [];
@@ -45,7 +44,7 @@ module.exports = class BittrexSocket {
         if (BittrexSocket.apisecret) {
             await BittrexSocket.authenticate(BittrexSocket.client);
         } else {
-            console.log('Authentication skipped because API key was not provided')
+            console.log('Authentication bittrex socket skipped because API key was not provided');
         }
         await this.subscribe(BittrexSocket.client);
     }
@@ -55,9 +54,8 @@ module.exports = class BittrexSocket {
             const client = new signalR.client(BittrexSocket.url, BittrexSocket.hub);
             client.serviceHandlers.messageReceived = BittrexSocket.messageReceived;
             client.serviceHandlers.connected = () => {
-                console.log('Connected');
-                return resolve(client)
-            }
+                return resolve(client);
+            };
         });
     }
 
@@ -74,9 +72,9 @@ module.exports = class BittrexSocket {
                 signedContent);
 
         if (response['Success']) {
-            console.log('Authenticated');
+            console.log('Authenticated bittrex socket');
         } else {
-            console.log('Authentication failed: ' + response['ErrorCode']);
+            console.log('Authentication bittrex socket failed: ' + response['ErrorCode']);
         }
     }
 
@@ -86,7 +84,7 @@ module.exports = class BittrexSocket {
 
         for (var i = 0; i < BittrexSocket.channels.length; i++) {
             if (response[i]['Success']) {
-                console.log('Subscription to "' + channels[i] + '" successful');
+//                console.log('Subscription to "' + channels[i] + '" successful');
             } else {
                 console.log('Subscription to "' + channels[i] + '" failed: ' + response[i]['ErrorCode']);
             }
@@ -127,7 +125,7 @@ module.exports = class BittrexSocket {
                     } else if (m.M == 'heartbeat') {
                         console.log('\u2661');
                     } else if (m.M == 'authenticationExpiring') {
-                        console.log('Authentication expiring...');
+                        console.log('Authentication bittrex socket expiring...');
                         BittrexSocket.authFunction(BittrexSocket.client);
                     }
                 }

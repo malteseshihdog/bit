@@ -37,13 +37,10 @@ module.exports = class Controller extends Configurable {
                     return true;
                 }
             } else {
-                console.log('Route does not exist. ' + controllerPath);
                 return false;
             }
-            console.log('Route does not exist. ' + controllerPath);
             return false;
         } catch (e) {
-            console.log('could not route to action');
             throw e;
         }
     }
@@ -56,7 +53,6 @@ module.exports = class Controller extends Configurable {
         var controllerName = (packet[0].charAt(0).toUpperCase()) + (packet[0].slice(1)) + 'Controller';
         var actionName = 'socket' + (packet[1].charAt(0).toUpperCase()) + (packet[1].slice(1));
         var controllerPath = './application/controller/' + controllerName + '.js';
-        console.log(actionName, controllerPath);
         if (fs.existsSync(controllerPath)) {
             var controller = require('.' + controllerPath);
             if (controller && controller[actionName] && typeof controller[actionName] === 'function') {

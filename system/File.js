@@ -12,7 +12,6 @@ module.exports = class File extends Configurable {
         var q = request.originalUrl.indexOf('?');
         var filePath = File.getWebDirectory() + request.originalUrl.slice(0, q !== -1 ? q : request.originalUrl.length);
         if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
-            console.log('serve file: ' + filePath);
             fs.readFile(filePath, (error, data) => {
                 if (error) {
                     console.log(filePath, error);
@@ -24,7 +23,6 @@ module.exports = class File extends Configurable {
             });
             return true;
         }
-        console.log('file does not exist ' + filePath);
         return false;
     }
 

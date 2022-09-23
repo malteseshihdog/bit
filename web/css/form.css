@@ -4,7 +4,7 @@ label {
     padding: 5px;
     box-sizing: border-box;
 }
-input {
+input, select {
     width: 100%;
     padding: 5px;
     box-sizing: border-box;

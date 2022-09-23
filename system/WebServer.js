@@ -45,7 +45,6 @@ module.exports = class WebServer extends Configurable {
     static async route(request, response) {
         if (!Controller.routeAction(request, response)) {
             if (!await File.serve(request, response)) {
-                console.log('404');
                 response.redirect('/');
             }
         }
@@ -56,6 +55,6 @@ module.exports = class WebServer extends Configurable {
     }
 
     static onListen() {
-        console.log('Web server available to serve through port: ' + WebServer.getPort());
+        console.log('Web server available to serve http://' + WebServer.getHost() + ':' + WebServer.getPort() + '/');
     }
 };

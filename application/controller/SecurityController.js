@@ -10,6 +10,15 @@ module.exports = class SecurityController extends Controller {
     static cookieName = Security.hash("" + (Math.random() * 1000000000));
     static cookieValue = Security.hash("" + (Math.random() * 1000000000));
 
+    static shakeCookieTimeout;
+
+    static shakeCookie() {
+        clearTimeout(SecurityController.shakeCookieTimeout);
+        SecurityController.cookieName = Security.hash("" + (Math.random() * 1000000000));
+        SecurityController.cookieValue = Security.hash("" + (Math.random() * 1000000000));
+        SecurityController.shakeCookieTimeout = setTimeout(SecurityController.shakeCookie, 900000);
+    }
+
     static passCookie(request, response) {
         response.cookie(SecurityController.cookieName, SecurityController.cookieValue, {maxAge: 900000, httpOnly: false});
     }
@@ -95,7 +104,7 @@ module.exports = class SecurityController extends Controller {
             if (!SecurityController.needsApiSettings(uriParts, request, response)) {
                 if (!SecurityController.authenticate(uriParts, request, response)) {
                     if (Object.keys(request.body).length && User.authenticate(request.body.password)) {
-                        SecurityController.passCookie(request,response);
+                        SecurityController.passCookie(request, response);
                         console.log('logged in...');
                         setTimeout(() => {
                             SecurityController.actionReload(uriParts, request, response);

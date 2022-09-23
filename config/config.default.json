@@ -1,7 +1,7 @@
 {
     "Route": {
         "trade": false,
-        "minInputBtc": 0.0002,
+        "minInputBtc": 0.001,
         "minProfitFactor": 0.2,
         "profitAllThree": true,
         "nextTradeTimeout": 10000
