@@ -55,6 +55,6 @@ module.exports = class WebServer extends Configurable {
     }
 
     static onListen() {
-        console.log('Web server available to serve http://' + WebServer.getHost() + ':' + WebServer.getPort() + '/');
+        console.log('Web server available to serve on: http://' + WebServer.getHost() + ':' + WebServer.getPort() + '/');
     }
 };
