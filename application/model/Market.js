@@ -605,8 +605,10 @@ module.exports = class Market extends Model {
         }
     }
 
-    static subscribeSocket() {
+    static subscribeSocketTimeout;
 
+    static subscribeSocket() {
+        clearTimeout(Market.subscribeSocketTimeout);
         var channels = [];
         for (var i in Market.list) {
             if (Market.list[i].routes.length > 0) {
@@ -614,6 +616,7 @@ module.exports = class Market extends Model {
             }
         }
         BittrexSocket.construct(Bittrex.config('apikey'), Bittrex.config('apisecret'), channels, Market.updateSocketTickers);
+        Market.subscribeSocketTimeout = setTimeout(Market.subscribeSocket, 600000); // resubscrivbe sockets every 10 minutes
     }
 
     static subscribeFeesAndMinTradeSizes() {

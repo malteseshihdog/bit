@@ -9,6 +9,7 @@ img {
     margin: auto;
     padding: 30px;
     padding: 30px;
+    box-sizing: border-box;
     margin-top: 50px;
     margin-bottom: 50px;
     background: #222F52;

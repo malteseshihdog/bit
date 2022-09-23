@@ -3,7 +3,7 @@ var SocketServer = require('../../system/SocketServer.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var View = require('../../system/View.js');
 var User = require('../model/User.js');
-var Security = require('../model/Security.js');
+var Security = require('../../system/Security.js');
 
 module.exports = class SecurityController extends Controller {
 

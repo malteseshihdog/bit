@@ -7,15 +7,24 @@ module.exports = class ArbitrageController extends SecurityController {
     static BookBalancer = require('../model/BookBalancer.js');
 
     static async actionIndex(uriParts, request, response) {
-        response.send(await ArbitrageController.Arbitrage.consoleOutput());
+        if (ArbitrageController.authenticate(uriParts, request, response)) {
+            response.send(await ArbitrageController.Arbitrage.consoleOutput());
+        } else {
+            response.redirect('/');
+        }
     }
 
     static async actionCancelAll(uriParts, request, response) {
-        await ArbitrageController.Order.cancelAll();
+        if (ArbitrageController.authenticate(uriParts, request, response)) {
+            await ArbitrageController.Arbitrage.Order.cancelAll();
+        }
+        response.redirect('/');
     }
 
     static async actionRebalance(uriParts, request, response) {
-        await ArbitrageController.BookBalancer.rebalance();
+        if (ArbitrageController.authenticate(uriParts, request, response)) {
+            await ArbitrageController.BookBalancer.rebalance();
+        }
         response.redirect('/');
     }
     static async actionTradeToBtc(uriParts, request, response) {
@@ -37,7 +46,7 @@ module.exports = class ArbitrageController extends SecurityController {
 
     static actionArbitrage(uriParts, request, response) {
         if (ArbitrageController.authenticate(uriParts, request, response)) {
-            if(!ArbitrageController.Arbitrage.initialized) {
+            if (!ArbitrageController.Arbitrage.initialized) {
                 ArbitrageController.Arbitrage.start();
             }
             console.log("Request abritrage...");

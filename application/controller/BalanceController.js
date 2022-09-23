@@ -1,11 +1,11 @@
 var Controller = require('../../system/Controller.js');
 
-module.exports = class ArbitrageController extends Controller {
+module.exports = class BalanceController extends Controller {
 
     static Arbitrage = require('../model/Arbitrage.js');
 
     static async actionIndex(uriParts, request, response) {
-        response.send(await ArbitrageController.Arbitrage.consoleOutput());
+        response.send(await BalanceController.Arbitrage.consoleOutput());
     }
     
 

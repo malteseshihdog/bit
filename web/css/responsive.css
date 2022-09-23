@@ -1,0 +1,21 @@
+@media screen and (max-width: 0) {
+}
+@media screen and (max-width: 480px) {
+}
+@media screen and (max-width: 768px) {
+    #tab ul li {
+        padding: 10px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    #tab ul li span {
+        font-size: 0;
+    }
+    table tr th {
+        min-width: 100px;
+    }
+}
+@media screen and (max-width: 1280px) {
+}
+@media screen and (min-width: 1280px) {
+}

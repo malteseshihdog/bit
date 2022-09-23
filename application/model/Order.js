@@ -208,6 +208,12 @@ module.exports = class Order extends Model {
         this.canceling = false;
         this.get();
     }
+    
+    static async cancelAll() {
+        for(var i in Order.list) {
+            await Order.list[i].cancel();
+        }
+    }
 
     /**
      * Output that gets logged to console

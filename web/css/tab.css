@@ -10,6 +10,7 @@
     box-sizing: border-box;
     cursor: pointer;
     font-size: 14px;
+    text-align: center;
 }
 #tab ul li.active, #tab ul li:hover {
     background:#192341;
@@ -33,4 +34,6 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    overflow-x: auto;
+    max-width: 100%;
 }

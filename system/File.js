@@ -9,7 +9,8 @@ var readFile = util.promisify(fs.readFile);
 module.exports = class File extends Configurable {
 
     static async serve(request, response) {
-        var filePath = File.getWebDirectory() + request.originalUrl;
+        var q = request.originalUrl.indexOf('?');
+        var filePath = File.getWebDirectory() + request.originalUrl.slice(0, q !== -1 ? q : request.originalUrl.length);
         if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
             console.log('serve file: ' + filePath);
             fs.readFile(filePath, (error, data) => {

@@ -10,6 +10,7 @@
 }
 [class*="col-"] {
     box-sizing: border-box;
+    display: block;
     float: left;
     min-height: 1px;
 }

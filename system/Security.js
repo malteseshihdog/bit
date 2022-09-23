@@ -1,4 +1,4 @@
-var Model = require('../../system/Model.js');
+var Model = require('./Model.js');
 var crypto = require('crypto');
 
 

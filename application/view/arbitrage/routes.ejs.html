@@ -1,28 +1,44 @@
-<div id="tab">
-    <ul>
-        <li data-for="routes">Routes</li>
-        <li data-for="balances">Balances</li>
-        <li data-for="trades">Trades</li>
-        <li data-for="orders">Orders</li>
-        <li data-for="currencies">Currencies</li>
-        <li data-for="markets">Markets</li>
-        <li data-for="config">Config</li>
-    </ul>
-</div>
-<div id="tabContent">
-    <div id="routes">
+<div class="row">
+    <div class="col-xs-24">
+        <div id="tab">
+            <ul>
+                <li data-for="routes" class="col-xs-3"><i class="fa fa-recycle"></i> <span>Routes</span></li>
+                <li data-for="balances" class="col-xs-3"><i class="fa fa-balance-scale"></i> <span>Balances</span></li>
+                <li data-for="trades" class="col-xs-3"><i class="fa fa-random"></i> <span>Trades</span></li>
+                <li data-for="orders" class="col-xs-3"><i class="fa fa-list"></i> <span>Orders</span></li>
+                <li data-for="currencies" class="col-xs-3"><i class="fa fa-money"></i> <span>Currencies</span></li>
+                <li data-for="markets" class="col-xs-3"><i class="fa fa-line-chart"></i> <span>Markets</span></li>
+                <li data-for="config" class="col-xs-3"><i class="fa fa-cog"></i> <span>Config</span></li>
+            </ul>
+        </div>
     </div>
-    <div id="balances">
-    </div>
-    <div id="trades">
-    </div>
-    <div id="orders">
-    </div>
-    <div id="currencies">
-    </div>
-    <div id="markets">
-    </div>
-    <div id="config">
+    <div id="tabContent" class="col-xs-24" style="overflow-x: overflow;">
+        <div id="routes">
+        </div>
+        <div id="balances">
+            <div class="text-right">
+                <button class="button" onclick="if (confirm('Are you sure you want to balance your currencies? Balances will be traded to Bitcoin and balanced based on how many routes the currency has open. You will pay commission for each trade.')) {
+                            $.get('/arbitrage/rebalance');
+                        }">Balance book</button>
+            </div>
+            <div class="balances"></div>
+        </div>
+        <div id="trades">
+        </div>
+        <div id="orders">
+            <div class="text-right">
+                <button class="button" onclick="if (confirm('Are you sure you want to cancel all your orders?')) {
+                            $.get('/arbitrage/cancelAll');
+                        }">Cancel all</button>
+            </div>
+            <div class="orders"></div>
+        </div>
+        <div id="currencies">
+        </div>
+        <div id="markets">
+        </div>
+        <div id="config">
+        </div>
     </div>
 </div>
 <script src="/js/tabs.js"></script>

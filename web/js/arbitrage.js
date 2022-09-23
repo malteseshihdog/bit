@@ -9,13 +9,13 @@ function updateRoutes(data) {
     $('#routes').html(data);
 }
 function updateBalances(data) {
-    $('#balances').html(data);
+    $('#balances .balances').html(data);
 }
 function updateTrades(data) {
     $('#trades').html(data);
 }
 function updateOrders(data) {
-    $('#orders').html(data);
+    $('#orders .orders').html(data);
 }
 
 var host = window.location.protocol + "//" + window.location.host + ':8443';
