@@ -16,9 +16,20 @@ module.exports = class BookBalancer extends Model {
 
     static async rebalance() {
         console.log('Initializing Balancer...');
+        await BookBalancer.Order.get();
         await BookBalancer.closeOrders();
-        setTimeout(BookBalancer.tradeToBtc, 5000);
-        setTimeout(BookBalancer.tradeBtcToAll, 10000);
+        setTimeout(() => {
+            Util.when(() => {
+                BookBalancer.Order.get();
+                return BookBalancer.Order.list.length !== 0;
+            }, BookBalancer.tradeToUsdt, 1000);
+        }, 1000);
+        setTimeout(() => {
+            Util.when(() => {
+                BookBalancer.Order.get();
+                return BookBalancer.Order.list.length > 0;
+            }, BookBalancer.tradeUsdtToAll, 1000);
+        }, 5000);
     }
 
     static async closeOrders() {
@@ -26,24 +37,21 @@ module.exports = class BookBalancer extends Model {
         return await BookBalancer.Order.cancelAll();
     }
 
-    static async tradeToBtc() {
-        console.log('Trade all to BTC..');
-
+    static async tradeToUsdt() {
+        console.log('Trade all to USDT..');
         var allowedCurrencies = BookBalancer.Currency.getAllowed();
-
-
         for (var i in allowedCurrencies) {
             var currency = BookBalancer.Currency.getBySymbol(allowedCurrencies[i]);
-            if (currency.symbol === BookBalancer.Currency.BTC.symbol) {
+            if (currency.symbol === BookBalancer.Currency.USDT.symbol) {
                 continue;
             }
             var balance = BookBalancer.Balance.getByCurrencySymbol(allowedCurrencies[i]);
-            var price = currency.getMarket(BookBalancer.Currency.BTC).getMarketPrice(BookBalancer.Currency.BTC);
-            
+            var price = currency.getMarket(BookBalancer.Currency.USDT).getMarketPrice(BookBalancer.Currency.USDT);
+
             console.log("price: " + balance.getTotal());
             console.log("total: " + balance.getTotal());
-            
-            var trade = currency.tradeToBtc(balance.getTotal(), price);
+
+            var trade = currency.tradeToUsdt(balance.getTotal(), price);
             if (trade) {
                 try {
                     console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
@@ -58,13 +66,14 @@ module.exports = class BookBalancer extends Model {
         return await BookBalancer.Balance.getAll();
     }
 
-    static async tradeBtcToAll() {
-        console.log('Trade BTC to all..');
+    static async tradeUsdtToAll() {
+        console.log('Trade USDT to all..');
         var allowedCurrencies = BookBalancer.Currency.getAllowed();
         var totalCurrencies = allowedCurrencies.length;
-        var totalBtc = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal();
+        var totalUsdt = BookBalancer.Balance.getByCurrencySymbol('USDT').getTotal();
+        console.log(totalUsdt);
         var totalRoutes = BookBalancer.Route.list.length;
-        var currencyRoutes = []
+        var currencyRoutes = [];
         var currencyDivider = 0;
 
         for (var i in allowedCurrencies) {
@@ -74,11 +83,11 @@ module.exports = class BookBalancer extends Model {
         }
         for (var i in allowedCurrencies) {
             var currency = BookBalancer.Currency.getBySymbol(allowedCurrencies[i]);
-            if (currency.symbol === BookBalancer.Currency.BTC.symbol) {
+            if (currency.symbol === BookBalancer.Currency.USDT.symbol) {
                 continue;
             }
-            var btcQuantity = totalBtc * (currencyRoutes[i].length / currencyDivider);
-            var trade = BookBalancer.Currency.BTC.tradeTo(currency, btcQuantity);
+            var usdtQuantity = totalUsdt * (currencyRoutes[i].length / currencyDivider);
+            var trade = BookBalancer.Currency.USDT.tradeTo(currency, usdtQuantity);
             if (trade) {
                 try {
                     await trade.execute((trade) => {
