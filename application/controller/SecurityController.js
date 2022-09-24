@@ -7,8 +7,8 @@ var Security = require('../../system/Security.js');
 
 module.exports = class SecurityController extends Controller {
 
-    static cookieName = Security.hash("" + (Math.random() * 1000000000));
-    static cookieValue = Security.hash("" + (Math.random() * 1000000000));
+    static cookieName;
+    static cookieValue;
 
     static shakeCookieTimeout;
 

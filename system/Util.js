@@ -24,9 +24,6 @@ module.exports = class Util {
             str += '<span class="profit">';
             str += '+';
         }
-        if (number < 10 && number > -10) {
-            str += '0';
-        }
         return str + number.toFixed(decimals).replace('-', '') + "</span>";
     }
 

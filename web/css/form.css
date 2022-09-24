@@ -30,3 +30,10 @@ button:hover, input[type="submit"]:hover {
     background: #30DA60;
     border-color: #61FCA1;
 }
+label {
+    padding: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block;
+    box-sizing: border-box;
+}

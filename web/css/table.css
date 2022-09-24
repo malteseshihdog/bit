@@ -18,20 +18,17 @@ table tr th {
     font-size: 14px;
     text-transform: uppercase;
     border-bottom: #404D7A 1px solid;
-    padding: 10px;
-    word-wrap: break-word;
-    word-break: break-all;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 table tr td {
     color: #FFF;
     font-size: 14px;
     text-align: center;
-    padding: 10px;
-    word-wrap: break-word;
-    word-break: break-all;
+    padding-top: 10px;
+    padding-bottom: 10px;
     vertical-align: middle;
 }
-
 table tr td:first-child {
     border-radius: 20px 0px 0px 20px;
 }
