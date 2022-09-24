@@ -15,6 +15,7 @@ img {
     background: #222F52;
     box-shadow: 0px 2px 40px 5px rgba(0,0,0,0.75);
     border-radius: 20px;
+    border: #081230 1px solid;
 }
 
 .routes, .trades, .orders, .balances {
