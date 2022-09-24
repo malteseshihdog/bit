@@ -25,3 +25,6 @@ img {
 input [type='submit'] {
     font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.login {
+    padding: 20px;
+}

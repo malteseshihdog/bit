@@ -48,7 +48,7 @@ module.exports = class Trade extends Model {
         var output = "<h3>Trades (" + Trade.list.length + ") </h3> <table><tr><th>" + ["Time", "Market", "Currency", "Quantity", "Rate"].join("</th><th>") + "</th></tr>";
         for (var i = Trade.list.length - 1; i >= 0; i--) {
             output += "<tr> " + Trade.list[i].consoleOutput() + "</tr>";
-            if (Trade.list.length - i == 6) {
+            if (Trade.list.length - i == 30) {
                 break
             }
             ;

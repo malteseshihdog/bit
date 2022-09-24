@@ -390,8 +390,8 @@ module.exports = class Balance extends Model {
      */
     static consoleOutput() {
         if (Currency.BTC && Currency.USDT) {
-            var nowStr = "Accumulate<br>" + Util.getFormattedTime();
-            var startStr = "Accumulate<br>" + (Balance.startAccumulationTime ? Util.getFormattedTime(Balance.startAccumulationTime) : 'Pending...');
+            var nowStr = "Accumulate<br>" + new Date().toLocaleString();
+            var startStr = "Accumulate<br>" + (Balance.startAccumulationTime ? Balance.startAccumulationTime.toLocaleString() : 'Pending...');
             var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>" + startStr + "</th><th>" + nowStr + "</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
             var balancesOutput = '';
             

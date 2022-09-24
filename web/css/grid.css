@@ -1,6 +1,6 @@
 .clear:after {
     clear: both;
-    display: block;
+    display: table-cell;
     content: '';
 }
 .row::after {
@@ -10,7 +10,6 @@
 }
 [class*="col-"] {
     box-sizing: border-box;
-    display: block;
     float: left;
     min-height: 1px;
 }
@@ -27,7 +26,7 @@
     visibility: visible;
 }
 [class*="hidden-"] {
-    display: block;
+    display: table-cell;
 }
 [class*="hidden-inline-"] {
     display: inline-block;
@@ -399,7 +398,7 @@
     }
 
     .display-xs {
-        display: block;
+        display: table-cell;
     }
 
     .display-inline-xs {
@@ -632,7 +631,7 @@
     }
 
     .display-s {
-        display: block;
+        display: table-cell;
     }
 
     .display-inline-s {
@@ -865,7 +864,7 @@
     }
 
     .display-m {
-        display: block;
+        display: table-cell;
     }
 
     .display-inline-m {
@@ -1098,7 +1097,7 @@
     }
 
     .display-l {
-        display: block;
+        display: table-cell;
     }
 
     .display-inline-l {
@@ -1331,7 +1330,7 @@
     }
 
     .display-xl {
-        display: block;
+        display: table-cell;
     }
 
     .display-inline-xl {
