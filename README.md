@@ -69,6 +69,7 @@ Login using your password
 ![screenshot](https://i.snipboard.io/kMXKb1.jpg)
 
 ### Routes
+![screenshot](https://i.snipboard.io/HfyNh0.jpg)
 You will be directed to the routes overview. This overview features an insight into real-time arbs. By default three currencies are enabeled. BTC, USDT and ETH.
 The table features eight columns:
  * Exchange being the exchange (currently only Bittrex.)
@@ -79,9 +80,9 @@ The table features eight columns:
  * Profit being the profit the route would give.
  * Profit Factor being the percentage of profit there is to be made.
  * Net Profit being the accumulation of all three profit factors.
-![screenshot](https://i.snipboard.io/HfyNh0.jpg)
 
 ### Balances
+![screenshot](https://i.snipboard.io/S7dazD.jpg)
 In the balances tab you will see your balances compared against one another according to the currencies you have selected.
 The table features nine columns:
  * Currency being the currency symbol and its logo.
@@ -92,7 +93,6 @@ The table features nine columns:
  * Factor being a percentage of profit. The bottom of the column features the average profit factor.
  * USDT is the ammount of balance you have in the currency in USDT
  * BTC is the amount of balance you have in the currency in BTC
- ![screenshot](https://i.snipboard.io/S7dazD.jpg)
 
 ### Trades
 ![image](https://user-images.githubusercontent.com/1371051/191837374-b0e5139b-8c05-4fd4-afbd-b4c8ec7dbb70.png)
