@@ -54,8 +54,7 @@ node bootstrap.js
 Visit [http://localhost/](http://localhost/) in your browser
 
 # Configuration
-
-Follow instructions during first time setup when you visit the URL.
+Follow instructions during first time setup when you visit the [http://localhost/](http://localhost/).
 
 ### Create a password
 Fill out the form to create a password you will use later to login
@@ -96,6 +95,7 @@ The table features nine columns:
  ![screenshot](https://i.snipboard.io/S7dazD.jpg)
 
 ### Trades
+![image](https://user-images.githubusercontent.com/1371051/191837374-b0e5139b-8c05-4fd4-afbd-b4c8ec7dbb70.png)
 The Trades tab features the trades that Bittrex Arbitrage has placed. If you enable trade in the config tab this will gradually fill up as you start finding routes which suite your.
 The table features five columns:
  * Time being the timestamp the trade was placed
@@ -103,9 +103,9 @@ The table features five columns:
  * Currency being the currency that was traded
  * Quantity being the quantity traded
  * Rate being the price
-![image](https://user-images.githubusercontent.com/1371051/191837374-b0e5139b-8c05-4fd4-afbd-b4c8ec7dbb70.png)
 
 ### Orders
+![image](https://user-images.githubusercontent.com/1371051/191848773-bb6852d3-2104-4629-b09e-f0f391739f19.png)
 The Orders tab features currently open orders.
 The table features nine columns:
  * Market being the market the order is in
@@ -116,9 +116,9 @@ The table features nine columns:
  * Target price being the price of the trade order
  * Difference being the difference in current market price and the current order price
  * Factor being the percentage of the difference of market price from order price
-![image](https://user-images.githubusercontent.com/1371051/191848773-bb6852d3-2104-4629-b09e-f0f391739f19.png)
 
 ### Currencies
+![screenshot](https://i.snipboard.io/KRjQtP.jpg)
 In the currencies tab you can configure the currencies you want to use in your strategy. Click the row of the currency you want to enable and then click the update allowed currencies. You will be warned that your profits will be recalculated.
 The table features eight columns
  * Allow has a checkbox you can check to enable the currency for trade
@@ -129,7 +129,7 @@ The table features eight columns
  * Transaction fee is the fee to withdraw the currency.
  * Markets is the amount of markets the currency is used in. You cannot find arbitrages with currencies that feature atleast two or more markets. That's why by default you will see currencies that always have atleast two markets.
  * Notice is a notice from Bittrex about the currency
- ![screenshot](https://i.snipboard.io/KRjQtP.jpg)
+
 
 #### Enable currencies guide
  1. If you allow as an example XRP in the currencies tab ![image](https://user-images.githubusercontent.com/1371051/191117484-098f0061-85b1-499a-849e-8e17cfa8828b.png)
@@ -137,6 +137,7 @@ The table features eight columns
  3. You will also notice that the currencies will be enabeled in your balance overview and your profits will be recalculated from a new starting point ![image](https://user-images.githubusercontent.com/1371051/191117981-9af869c6-a301-4df8-893f-865ba6a67351.png)
 
 ### Markets
+![image](https://user-images.githubusercontent.com/1371051/191118530-53f0571e-777d-4fe9-a03d-70a8b8e81e84.png)
 The markets tab features an overview of the markets on Bittrex. You can restrict certain markets you might not wish to trade in.
 The table features nine columns
  * Restrict contains a checkbox you can check to restrict the market from being traded in
@@ -148,13 +149,13 @@ The table features nine columns
  * Taker fee is your taker fee for the market
  * Status is whether the market is online or not
  * Notice is a notice from Bittrex about the market
-![image](https://user-images.githubusercontent.com/1371051/191118530-53f0571e-777d-4fe9-a03d-70a8b8e81e84.png)
 
 #### Restrict markets guide
  1. If you wish to restrict a market, for example say I no longer want to trade arbs that trade XRP against USDT I can check the checkbox and click the update restricted markets butten. ![image](https://user-images.githubusercontent.com/1371051/191119545-319b8f3b-78e7-4cf8-ba92-901d183a7588.png)
 2. You will notice the market will no longer be used in your arbs ![image](https://user-images.githubusercontent.com/1371051/191120017-93e61723-0007-44ab-b064-1bb63bec817c.png)
 
 ### Config
+![image](https://user-images.githubusercontent.com/1371051/191122762-fa12d69b-b283-486b-9537-790ffd40b22e.png)
 The config tab allows you to set certain configurration parameters.
  * Enable trade: When you check this checkbos Bittrex Arbitrage will start trading automatically.
  * Profit all three: When you check this checkbox Bittrex Arbitrage will trade only routes in which all three currencies form a profit
@@ -162,7 +163,6 @@ The config tab allows you to set certain configurration parameters.
  * Min profit factor: The minimum profit factor you want to achieve before Bittrex Arbitrage may place the trades
  * Mode: The strategy mode, the modes are market, potential, median, last and fixed.
  * Fix: The factor used to fix prices to make them more profitable.
-![image](https://user-images.githubusercontent.com/1371051/191122762-fa12d69b-b283-486b-9537-790ffd40b22e.png)
 
 # Configuration Parameters
 You may optionally configure in the json file `./config/config.json`. This file will be created automatically on initial run.
