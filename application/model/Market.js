@@ -576,7 +576,7 @@ module.exports = class Market extends Model {
         try {
             let markets = await Bittrex.markets();
             for (var i in markets) {
-                var market = market.getBySymbol(markets[i].symbol);
+                var market = Market.getBySymbol(markets[i].symbol);
                 if (market) {
                     market.minTradeSize = markets[i].minTradeSize;
                 }
@@ -619,9 +619,11 @@ module.exports = class Market extends Model {
         Market.subscribeSocketTimeout = setTimeout(Market.subscribeSocket, 600000); // resubscrivbe sockets every 10 minutes
     }
 
+    static updateInterval;
+
     static subscribeFeesAndMinTradeSizes() {
         clearInterval(Market.updateInterval);
-        Market.interval = setInterval(Market.updateFeesAndMinTradeSizes, 5000);
+        Market.updateFeesInterval = setInterval(Market.updateFeesAndMinTradeSizes, 600000); // get fees and min sizes every 10 minutes
     }
 
     static async updateFeesAndMinTradeSizes() {

@@ -13,7 +13,7 @@ module.exports = class MarketController extends SecurityController {
     static actionConfig(uriParts, request, response) {
         if (MarketController.authenticate(uriParts, request, response)) {
             if (request.body['symbol[]'] !== undefined) {
-                console.log('Update disabled markets...')
+                console.log('Update disabled markets...');
                 Market.setConfig('restrict', request.body['symbol[]']);
                 Market.commitConfig();
                 ArbitrageController.Arbitrage.Route.init();

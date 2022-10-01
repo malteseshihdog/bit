@@ -84,6 +84,7 @@ module.exports = class Route extends Model {
         }
         this.finding = false;
         Market.subscribeSocket();
+        Market.subscribeFeesAndMinTradeSizes();
     }
 
     static clear() {
