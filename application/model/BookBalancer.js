@@ -52,6 +52,7 @@ module.exports = class BookBalancer extends Model {
             console.log("total: " + balance.getTotal());
 
             var trade = currency.tradeToUsdt(balance.getTotal(), price);
+            
             if (trade) {
                 try {
                     console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());

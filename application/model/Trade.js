@@ -24,6 +24,8 @@ module.exports = class Trade extends Model {
     requestedAt = null;
     respondedAt = null;
     timeInForce = null;
+    maxTries = 5;
+    tries = 0
 
     static list = [];
 
@@ -151,7 +153,7 @@ module.exports = class Trade extends Model {
 
     setTypeMarket() {
         this.type = 'MARKET';
-        this.timeInForce = 'IMMEDIATE_OR_CANCEL';
+        this.timeInForce = 'FILL_OR_KILL';
     }
 
     meetsMinTradeRequirement() {
@@ -187,6 +189,7 @@ module.exports = class Trade extends Model {
     async execute(callback) {
         if (this.canExecute(true)) {
             try {
+                this.tries++;
                 Trade.push(this);
             this.logData();
             this.executedAt = Date.now();
@@ -210,8 +213,15 @@ module.exports = class Trade extends Model {
             }
             return response;
             } catch (e) {
-                console.log(e);
-        }
+                console.log(e.data.code);
+                if(this.tries < this.maxTries) {
+                    var _this = this;
+                    setTimeout(() => {
+                        console.log("Retry trade " + _this.getMarketSymbol() + " " + _this.getType() + " " + _this.getDirection());
+                        _this.execute(callback);
+                    }, 1000);
+                }
+            }
         } else {
             console.log("Cannot execute trade " + this.getMarketSymbol() + " " + this.getType() + " " + this.getDirection());
         }

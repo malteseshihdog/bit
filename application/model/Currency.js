@@ -532,7 +532,7 @@ module.exports = class Currency extends Model {
      * 
      * @param {Number} inputQuantity
      * @param {Number} [price] 
-     * @returns {Number|Boolean}
+     * @returns {Trade|Boolean}
      */
     tradeToBtc(inputQuantity, price) {
         return this === Currency.BTC ? false : this.tradeTo(Currency.BTC, inputQuantity, price);
@@ -543,7 +543,7 @@ module.exports = class Currency extends Model {
      * 
      * @param {Number} inputQuantity
      * @param {Number} [price] 
-     * @returns {Number|Boolean}
+     * @returns {Trade|Boolean}
      */
     tradeToUsdt(inputQuantity, price) {
         return this === Currency.USDT ? false : this.tradeTo(Currency.USDT, inputQuantity, price);
@@ -554,7 +554,7 @@ module.exports = class Currency extends Model {
      * 
      * @param {Number} inputQuantity
      * @param {Number} [price] 
-     * @returns {Number|Boolean}
+     * @returns {Trade|Boolean}
      */
     tradeToBase(inputQuantity, price) {
         return this === Currency.BASE ? false : this.tradeTo(Currency.BASE, inputQuantity, price);
@@ -567,7 +567,7 @@ module.exports = class Currency extends Model {
      * @param {Currency} outputCurrency
      * @param {Number} inputQuantity
      * @param {Number} [price] 
-     * @returns {Number|Boolean}
+     * @returns {Trade|Boolean|Undefined}
      */
     tradeTo(outputCurrency, inputQuantity, price) {
         if (this.symbol === outputCurrency.symbol)
@@ -584,7 +584,7 @@ module.exports = class Currency extends Model {
      * @param {Currency} outputCurrency
      * @param {Number} inputQuantity
      * @param {Number} [price] 
-     * @returns {Number|Boolean}
+     * @returns {Trade|Boolean|Undefined}
      */
     tradePotential(outputCurrency, inputQuantity, price) {
         if (this.symbol === outputCurrency.symbol)

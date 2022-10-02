@@ -5,6 +5,7 @@ var View = require('../../system/View.js');
 var Route = require('../model/Route.js');
 var Delta = require('../model/Delta.js');
 var User = require('../model/User.js');
+var Trade = require('../model/Trade.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var Security = require('../../system/Security.js');
 
@@ -34,8 +35,14 @@ module.exports = class ConfigController extends SecurityController {
             if (request.body.nextTradeTimeout) {
                 Route.setConfig('nextTradeTimeout', parseInt(request.body.nextTradeTimeout));
             }
+            if (request.body.orderType) {
+                Trade.setConfig('orderType', request.body.orderType);
+            }
             if (request.body.mode) {
                 Delta.setConfig('mode', request.body.mode);
+                if(request.body.mode !== 'market') {
+                    Trade.setConfig('orderType', 'LIMIT'); // prevent perople from configuring a money drain
+                }
             }
             if (request.body.fix) {
                 Delta.setConfig('fix', parseFloat(request.body.fix));
@@ -60,13 +67,15 @@ module.exports = class ConfigController extends SecurityController {
             if (request.body.apiSecret) {
                 Bittrex.setConfig('apisecret', request.body.apiSecret);
             }
+
             Bittrex.setConfig('subaccountid', request.body.subAccountId);
             Bittrex.commitConfig();
             Route.commitConfig();
+            Trade.commitConfig();
             Delta.commitConfig();
             console.log('Update config...');
             setTimeout(function () {
-                View.render('config/config', {route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
+                View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
             }, 2000);
         } else {
             ConfigController.reload(uriParts, request, response);

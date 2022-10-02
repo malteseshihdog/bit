@@ -45,12 +45,28 @@
                                 $('#fixedRow').show();
                             } else {
                                 $('#fixedRow').hide();
+                            }
+                                    if ($(this).val() === 'market') {
+                                $('#orderTypeRow').show();
+                            } else {
+                                $('#orderTypeRow').hide();
                             }">
                         <option value="market" <%= delta.config('mode') === 'market' ? 'selected="selected"' : '' %>>market</option>
                         <option value="potential" <%= delta.config('mode') === 'potential' ? 'selected="selected"' : '' %>>potential</option>
                         <option value="median" <%= delta.config('mode') === 'median' ? 'selected="selected"' : '' %>>median</option>
                         <option value="last" <%= delta.config('mode') === 'last' ? 'selected="selected"' : '' %>>last</option>
                         <option value="fixed" <%= delta.config('mode') === 'fixed' ? 'selected="selected"' : '' %>>fixed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="display: <%= delta.config('mode') === 'market' ? 'block' : 'none' %>" id="orderTypeRow">
+                <div class="col-xs-24">
+                    <label for="mode" class="text-left">Order Type</label>
+                </div>
+                <div class="col-xs-24">
+                    <select name="orderType" id="orderType">
+                        <option value="LIMIT" <%= trade.config('orderType') === 'LIMIT' ? 'selected="selected"' : '' %>>LIMIT</option>
+                        <option value="MARKET" <%= trade.config('orderType') === 'MARKET' ? 'selected="selected"' : '' %>>MARKET</option>
                     </select>
                 </div>
             </div>
@@ -66,10 +82,10 @@
         <div class="col-xs-24 col-m-8" style="padding: 10px;">
             <h2>Security Settings</h2>
             <% if(confirmPasswordError) { %>
-                <p>Confirm password error</p>
+            <p>Confirm password error</p>
             <% } %>
             <% if(passwordNotMatchError) { %>
-                <p>Passwords do not match</p>
+            <p>Passwords do not match</p>
             <% } %>
             <div class="row">
                 <div class="col-xs-24">
