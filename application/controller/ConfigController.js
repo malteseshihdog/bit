@@ -69,14 +69,15 @@ module.exports = class ConfigController extends SecurityController {
             }
 
             Bittrex.setConfig('subaccountid', request.body.subAccountId);
-            Bittrex.commitConfig();
-            Route.commitConfig();
-            Trade.commitConfig();
             Delta.commitConfig();
             console.log('Update config...');
-            setTimeout(function () {
-                View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
-            }, 2000);
+            if(request.body.length > 0) {
+                setTimeout(function () {
+                    View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
+                }, 2000);
+            } else {
+                    View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
+            }
         } else {
             ConfigController.reload(uriParts, request, response);
         }
