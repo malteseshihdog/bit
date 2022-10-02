@@ -102,31 +102,7 @@ module.exports = class Route extends Model {
                     && Route.list[i].currencyZ.symbol === currencyZ) {
                 return true;
             }
-            if (Route.list[i].currencyX.symbol === currencyX
-                    && Route.list[i].currencyY.symbol === currencyZ
-                    && Route.list[i].currencyZ.symbol === currencyY) {
-                return true;
-            }
-            if (Route.list[i].currencyX.symbol === currencyY
-                    && Route.list[i].currencyY.symbol === currencyX
-                    && Route.list[i].currencyZ.symbol === currencyZ) {
-                return true;
-            }
-            if (Route.list[i].currencyX.symbol === currencyY
-                    && Route.list[i].currencyY.symbol === currencyZ
-                    && Route.list[i].currencyZ.symbol === currencyX) {
-                return true;
-            }
-            if (Route.list[i].currencyX.symbol === currencyZ
-                    && Route.list[i].currencyY.symbol === currencyX
-                    && Route.list[i].currencyZ.symbol === currencyY) {
-                return true;
-            }
-            if (Route.list[i].currencyX.symbol === currencyZ
-                    && Route.list[i].currencyY.symbol === currencyY
-                    && Route.list[i].currencyZ.symbol === currencyX) {
-                return true;
-            }
+
         }
         return false;
     }
