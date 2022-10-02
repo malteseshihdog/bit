@@ -55,12 +55,12 @@ module.exports = class BookBalancer extends Model {
             
             if (trade) {
                 try {
-                    console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
-                    await trade.execute((trade) => {
-                        console.log('Executed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+                    console.log('Placed trade ' + trade.inputCurrency.symbol + ' -> ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+                    await trade.executeMarket((trade) => {
+                        console.log('Executed trade ' + trade.inputCurrency.symbol + ' -> ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
                     });
                 } catch (e) {
-                    //console.log(e);
+                    console.log(e);
                 }
             }
         }
@@ -91,14 +91,13 @@ module.exports = class BookBalancer extends Model {
             var trade = BookBalancer.Currency.USDT.tradeTo(currency, usdtQuantity);
             if (trade) {
                 try {
-                    await trade.execute((trade) => {
-                        console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+                    console.log('Placed trade ' + trade.inputCurrency.symbol + ' -> ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+                    await trade.executeMarket((trade) => {
+                        console.log('Executed trade ' + trade.inputCurrency.symbol + ' -> ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
                     });
                 } catch (e) {
                     console.log(e);
                 }
-            } else {
-                console.log(trade);
             }
         }
         return await BookBalancer.Balance.getAll();

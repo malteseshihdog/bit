@@ -24,7 +24,7 @@ module.exports = class Trade extends Model {
     requestedAt = null;
     respondedAt = null;
     timeInForce = null;
-    maxTries = 5;
+    maxTries = 20;
     tries = 0
 
     static list = [];
@@ -60,8 +60,8 @@ module.exports = class Trade extends Model {
 
     constructor(market, inputCurrency, outputCurrency, inputQuantity, price) {
         super();
-        
-        
+
+
         this.createdAt = Date.now();
         this.market = market;
         this.inputCurrency = inputCurrency;
@@ -168,7 +168,7 @@ module.exports = class Trade extends Model {
         if (!this.getMarket().canTrade()) {
             if (debug) {
                 console.log("Market not available " + this.getMarket().symbol);
-    }
+            }
             return false;
         }
         if (!this.meetsMinTradeRequirement()) {
@@ -191,30 +191,30 @@ module.exports = class Trade extends Model {
             try {
                 this.tries++;
                 Trade.push(this);
-            this.logData();
-            this.executedAt = Date.now();
-            let response = await Bittrex.newOrder(
-                    this.getMarketSymbol(),
+                this.logData();
+                this.executedAt = Date.now();
+                let response = await Bittrex.newOrder(
+                        this.getMarketSymbol(),
                         this.getDirection(),
-                    this.getType(),
-                    this.getTimeInForce(),
-                    this.getQuantity(),
-                    this.getCeiling(),
-                    this.getPrice(),
-                    this.getNote(),
-                    this.getUseAwards()
-                    );
-            this.respondedAt = Date.now();
-            this.response = response;
-            console.log(response);
-            this.logData();
-            if (callback) {
-                callback(this);
-            }
-            return response;
+                        this.getType(),
+                        this.getTimeInForce(),
+                        this.getQuantity(),
+                        this.getCeiling(),
+                        this.getType() === 'MARKET' ? 0 : this.getPrice(),
+                        this.getNote(),
+                        this.getUseAwards()
+                        );
+                this.respondedAt = Date.now();
+                this.response = response;
+                console.log(response);
+                this.logData();
+                if (callback) {
+                    callback(this);
+                }
+                return response;
             } catch (e) {
-                console.log(e.data.code);
-                if(this.tries < this.maxTries) {
+                console.log(e.response.data.code);
+                if (this.tries < this.maxTries) {
                     var _this = this;
                     setTimeout(() => {
                         console.log("Retry trade " + _this.getMarketSymbol() + " " + _this.getType() + " " + _this.getDirection());
@@ -227,33 +227,10 @@ module.exports = class Trade extends Model {
         }
         return null;
     }
-    
+
     async executeMarket(callback) {
-        if (this.canExecute()) {
-            this.logData();
-            this.executedAt = Date.now();
-            let response = await Bittrex.newOrder(
-                    this.getMarketSymbol(),
-                    this.getDirection(),
-                    "MARKET",
-                    "FILL_OR_KILL",
-                    this.getQuantity(),
-                    this.getCeiling(),
-                    this.getPrice(),
-                    this.getNote(),
-                    this.getUseAwards()
-                    );
-            this.respondedAt = Date.now();
-            this.response = response;
-            console.log(response);
-            this.logData();
-            if (callback) {
-                callback(this);
-            }
-            return response;
-            
-        }
-        return null;
+        this.setTypeMarket();
+        return this.execute(callback);
     }
 
     logData() {
