@@ -40,7 +40,7 @@ module.exports = class ConfigController extends SecurityController {
             }
             if (request.body.mode) {
                 Delta.setConfig('mode', request.body.mode);
-                if(request.body.mode !== 'market') {
+                if (request.body.mode !== 'market') {
                     Trade.setConfig('orderType', 'LIMIT'); // prevent perople from configuring a money drain
                 }
             }
@@ -71,12 +71,12 @@ module.exports = class ConfigController extends SecurityController {
             Bittrex.setConfig('subaccountid', request.body.subAccountId);
             Delta.commitConfig();
             console.log('Update config...');
-            if(request.body.length > 0) {
+            if (request.body.length > 0) {
                 setTimeout(function () {
                     View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
                 }, 2000);
             } else {
-                    View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
+                View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
             }
         } else {
             ConfigController.reload(uriParts, request, response);
