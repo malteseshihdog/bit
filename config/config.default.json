@@ -3,8 +3,7 @@
         "trade": false,
         "minInputBtc": 0.001,
         "minProfitFactor": 0.2,
-        "profitAllThree": true,
-        "nextTradeTimeout": 10000
+        "profitAllThree": true
     },
     "Delta": {
         "mode": "market",
@@ -50,7 +49,7 @@
         "certFile" : ""
     },
     "SocketServer": {
-        "port": 8443,
+        "port": 8080,
         "host": "localhost",
         "protocol": "https"
     },

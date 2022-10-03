@@ -18,7 +18,7 @@ function updateOrders(data) {
     $('#orders .orders').html(data);
 }
 
-var host = window.location.protocol + "//" + window.location.host + ':8443';
+var host = window.location.protocol + "//" + window.location.host + ':8080';
 console.log(host);
 var socket = io.connect(host, {secure: window.location.protocol === "http:"});
 socket.on('connect', function (data) {

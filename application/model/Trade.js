@@ -24,8 +24,9 @@ module.exports = class Trade extends Model {
     requestedAt = null;
     respondedAt = null;
     timeInForce = null;
-    maxTries = 20;
+    maxTries = 10;
     tries = 0
+    complete = false;
 
     static list = [];
 
@@ -190,7 +191,7 @@ module.exports = class Trade extends Model {
         if (this.canExecute(true)) {
             try {
                 this.tries++;
-                Trade.push(this);
+                
                 this.logData();
                 this.executedAt = Date.now();
                 let response = await Bittrex.newOrder(
@@ -204,17 +205,19 @@ module.exports = class Trade extends Model {
                         this.getNote(),
                         this.getUseAwards()
                         );
+                
+                this.complete = true;
+                Trade.push(this);
                 this.respondedAt = Date.now();
                 this.response = response;
-                console.log(response);
                 this.logData();
                 if (callback) {
                     callback(this);
                 }
                 return response;
             } catch (e) {
-                console.log(e.response.data.code);
-                if (this.tries < this.maxTries) {
+                console.log(e.response.data.code + " " + _this.getMarketSymbol() + " " + _this.getType() + " " + _this.getDirection());
+                if (this.tries < this.maxTries && this.getType() === 'LIMIT') {
                     var _this = this;
                     setTimeout(() => {
                         console.log("Retry trade " + _this.getMarketSymbol() + " " + _this.getType() + " " + _this.getDirection());

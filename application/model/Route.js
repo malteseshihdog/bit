@@ -241,15 +241,19 @@ module.exports = class Route extends Model {
             await Balance.getAll();
             if (Route.config('trade') && !Route.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
                 Route.trading = true;
+
                 tradeX.execute();
                 tradeY.execute();
                 tradeZ.execute();
 
-                await Balance.getAll();
-
-                setTimeout(() => {
-                    Route.trading = false;
-                }, Route.config('nextTradeTimeout'));
+                Util.when(
+                    () => {
+                        return !tradeX.complete && !tradeY.complete && !tradeZ.complete;
+                    },
+                    () => {
+                        Route.trading = false;
+                    }
+                );
             }
         }
     }
