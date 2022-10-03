@@ -216,7 +216,7 @@ module.exports = class Trade extends Model {
                 }
                 return response;
             } catch (e) {
-                console.log(e.response.data.code + " " + _this.getMarketSymbol() + " " + _this.getType() + " " + _this.getDirection());
+                console.log(e.response.data.code + " " + this.getMarketSymbol() + " " + this.getType() + " " + this.getDirection());
                 if (this.tries < this.maxTries && this.getType() === 'LIMIT') {
                     var _this = this;
                     setTimeout(() => {
