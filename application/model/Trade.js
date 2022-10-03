@@ -223,6 +223,8 @@ module.exports = class Trade extends Model {
                         console.log("Retry trade " + _this.getMarketSymbol() + " " + _this.getType() + " " + _this.getDirection());
                         _this.execute(callback);
                     }, 1000);
+                } else {
+                    this.complete = true;
                 }
             }
         } else {
