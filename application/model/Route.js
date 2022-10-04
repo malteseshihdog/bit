@@ -249,12 +249,13 @@ module.exports = class Route extends Model {
             });
 
             Util.when(
-                async () => {
-                    await Balance.getAll();
+                () => {
                     return !tradeX.complete && !tradeY.complete && !tradeZ.complete;
                 },
-                () => {
+                async () => {
+                    await Balance.getAll();
                     Route.trading = false;
+                    return false;
                 }, 100);
         }
     }
