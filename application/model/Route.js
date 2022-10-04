@@ -238,23 +238,24 @@ module.exports = class Route extends Model {
         var tradeZ = this.deltaChain[2].trade();
 
         if (Route.config('trade') && !Route.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
-            await Balance.getAll();
-            if (Route.config('trade') && !Route.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
-                Route.trading = true;
+            Route.trading = true;
 
-                tradeX.execute();
-                tradeY.execute();
-                tradeZ.execute();
+            tradeX.execute(() => {
+                tradeY.execute(() => {
+                    tradeZ.execute(() => {
+                        console.log('Route ' + this.currencyX.symbol + ' -> ' + this.currencyY.symbol + ' -> ' + this.currencyZ.symbol + ' -> ' + +this.currencyX.symbol + ' succesfylly executed.');
+                    });
+                });
+            });
 
-                Util.when(
-                    () => {
-                        return !tradeX.complete && !tradeY.complete && !tradeZ.complete;
-                    },
-                    () => {
-                        Route.trading = false;
-                    }
-                );
-            }
+            Util.when(
+                async () => {
+                    await Balance.getAll();
+                    return !tradeX.complete && !tradeY.complete && !tradeZ.complete;
+                },
+                () => {
+                    Route.trading = false;
+                }, 100);
         }
     }
 
