@@ -588,6 +588,7 @@ module.exports = class Market extends Model {
 
     static subscribeTickers() {
         clearInterval(Market.tickerInterval);
+        Market.updateTickers();
         Market.tickerInterval = setInterval(Market.updateTickers, Market.config('updateInterval'));
     }
 
