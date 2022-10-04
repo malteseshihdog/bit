@@ -243,7 +243,7 @@ module.exports = class Route extends Model {
             tradeX.execute(() => {
                 tradeY.execute(() => {
                     tradeZ.execute(() => {
-                        console.log('Route ' + this.currencyX.symbol + ' -> ' + this.currencyY.symbol + ' -> ' + this.currencyZ.symbol + ' -> ' + +this.currencyX.symbol + ' succesfylly executed.');
+                        console.log('Route ' + this.currencyX.symbol + ' -> ' + this.currencyY.symbol + ' -> ' + this.currencyZ.symbol + ' -> ' + this.currencyX.symbol + ' succesfylly executed.');
                     });
                 });
             });
