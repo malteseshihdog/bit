@@ -240,13 +240,9 @@ module.exports = class Route extends Model {
         if (Route.config('trade') && !Route.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
             Route.trading = true;
 
-            tradeX.execute(() => {
-                tradeY.execute(() => {
-                    tradeZ.execute(() => {
-                        console.log('Route ' + this.currencyX.symbol + ' -> ' + this.currencyY.symbol + ' -> ' + this.currencyZ.symbol + ' -> ' + this.currencyX.symbol + ' succesfylly executed.');
-                    });
-                });
-            });
+            tradeX.execute();
+            tradeY.execute();
+            tradeZ.execute();
 
             Util.when(
                 () => {
