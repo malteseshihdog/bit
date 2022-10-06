@@ -115,7 +115,9 @@ module.exports = class Order extends Model {
     static async cancelAll() {
         return await new Promise(async (resolve, reject) => {
             for (var i in Order.list) {
-                await Order.list[i].cancel();
+                if(Order.list[i]) {
+                    await Order.list[i].cancel();
+                }
             }
             return resolve(true);
         });
@@ -211,7 +213,9 @@ module.exports = class Order extends Model {
     
     static async cancelAll() {
         for(var i in Order.list) {
-            await Order.list[i].cancel();
+            if(Order.list[i]) {
+                await Order.list[i].cancel();
+            }
         }
     }
 
