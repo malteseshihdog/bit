@@ -59,7 +59,7 @@ module.exports = class Trade extends Model {
         return output + "</table>";
     }
 
-    constructor(market, inputCurrency, outputCurrency, inputQuantity, price) {
+    constructor(market, inputCurrency, outputCurrency, inputQuantity, price, outputQuantity) {
         super();
 
 
@@ -68,18 +68,17 @@ module.exports = class Trade extends Model {
         this.inputCurrency = inputCurrency;
         this.outputCurrency = outputCurrency;
         this.inputQuantity = inputQuantity;
+        this.outputQuantity = outputQuantity;
         this.price = price;
         this.getTradeQuantity();
         return this;
     }
 
     getTradeQuantity() {
-        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.deviation);
         if (this.getMarket().isBaseCurrency(this.inputCurrency)) {
-            this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
-        }
-        if (this.getMarket().isBaseCurrency(this.outputCurrency)) {
-            this.tradeQuantity = this.outputQuantity;
+            this.tradeQuantity = this.inputQuantity;
+        } else {
+            this.tradeQuantity = this.outputQuantity || this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.deviation);
         }
     }
 

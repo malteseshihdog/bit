@@ -445,14 +445,15 @@ module.exports = class Market extends Model {
      * @param {Currency} inputCurrency The currency to trade
      * @param {Currency} outputCurrency The currency received
      * @param {Number} inputQauntity The quantity to trade
-     * @param {Number} [price] The price
+     * @param {Number} price The price
+     * @param {Number} outputQuantity The output quantity
      * @returns {Trade}
      */
-    trade(inputCurrency, outputCurrency, inputQauntity, price) {
+    trade(inputCurrency, outputCurrency, inputQauntity, price, outputQuantity) {
         if (!price) {
             price = this.getMarketPrice(outputCurrency);
         }
-        return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price);
+        return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price, outputQuantity);
     }
 
     /**

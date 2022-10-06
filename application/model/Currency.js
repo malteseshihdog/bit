@@ -11,7 +11,7 @@ module.exports = class Currency extends Model {
 
     /**
      * @static
-     * @property {Currency} BTC 
+     * @property {Currency} USDT 
      */
     static USDT;
 
