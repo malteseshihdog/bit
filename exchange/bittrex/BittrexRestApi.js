@@ -5,7 +5,7 @@ module.exports = {
 
     account: async function (key, secret, subaccountid) {
 
-        const method = 'GET'
+        const method = 'GET';
         var apiSecret = secret;
         var apiKey = key;
         var timestamp = new Date().getTime();
