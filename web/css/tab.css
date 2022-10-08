@@ -28,6 +28,9 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
+#tab ul li:hover {
+    border-bottom: 1px solid;
+}
 #tab ul {
     display: flex;
     clear: both;
