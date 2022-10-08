@@ -32,6 +32,9 @@
 #tab ul li:hover {
     border-bottom: #081230 1px solid;
 }
+#tab ul li.active:hover {
+    border-bottom: #192341 1px solid;
+}
 #tab ul {
     display: flex;
     clear: both;
