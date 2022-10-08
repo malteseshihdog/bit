@@ -27,10 +27,10 @@
     border-color: #081230;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    border-bottom: #192341 1px solid;
 }
 #tab ul li:hover {
     border-bottom: #081230 1px solid;
-    margin-bottom: -1px;
 }
 #tab ul {
     display: flex;
