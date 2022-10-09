@@ -1,7 +1,7 @@
-const Configurable = require('../../system/Configurable.js');
+const Exchange = require('../Exchange.js');
 const bittrexApiV3 = require('./BittrexRestApi.js');
 
-class Bittrex extends Configurable {
+class Bittrex extends Exchange {
 
     static async account() {
         return await bittrexApiV3.account(
