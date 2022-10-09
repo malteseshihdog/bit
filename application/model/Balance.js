@@ -427,4 +427,4 @@ module.exports = class Balance extends Model {
                     , Util.pad(this.getBtcBalance() ? this.getBtcBalance() : 0)
         ].join("</td><td>")) + "</td>";
     }
-}
+};

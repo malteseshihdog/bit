@@ -102,7 +102,26 @@ module.exports = class Route extends Model {
                     && Route.list[i].currencyZ.symbol === currencyZ) {
                 return true;
             }
-
+            if (Route.list[i].currencyX.symbol === currencyY
+                    && Route.list[i].currencyY.symbol === currencyX
+                    && Route.list[i].currencyZ.symbol === currencyZ) {
+                return true;
+            }
+            if (Route.list[i].currencyX.symbol === currencyY
+                    && Route.list[i].currencyY.symbol === currencyZ
+                    && Route.list[i].currencyZ.symbol === currencyX) {
+                return true;
+            }
+            if (Route.list[i].currencyX.symbol === currencyZ
+                    && Route.list[i].currencyY.symbol === currencyX
+                    && Route.list[i].currencyZ.symbol === currencyY) {
+                return true;
+            }
+            if (Route.list[i].currencyX.symbol === currencyZ
+                    && Route.list[i].currencyY.symbol === currencyY
+                    && Route.list[i].currencyZ.symbol === currencyX) {
+                return true;
+            }
         }
         return false;
     }
@@ -238,7 +257,7 @@ module.exports = class Route extends Model {
         var tradeZ = this.deltaChain[2].trade();
 
         var tradeEnabeled = Route.config('trade');
-        var isntTrading  = !Route.isTrading();
+        var isntTrading = !Route.isTrading();
         var tradeXCanExecute = tradeX.canExecute();
         var tradeYCanExecute = tradeY.canExecute();
         var tradeZCanExecute = tradeZ.canExecute();
@@ -251,14 +270,14 @@ module.exports = class Route extends Model {
             tradeZ.execute();
 
             Util.when(
-                () => {
-                    return !tradeX.complete && !tradeY.complete && !tradeZ.complete;
-                },
-                async () => {
-                    await Balance.getAll();
-                    Route.trading = false;
-                    return false;
-                }, 100);
+                    () => {
+                return !tradeX.complete && !tradeY.complete && !tradeZ.complete;
+            },
+                    async () => {
+                await Balance.getAll();
+                Route.trading = false;
+                return false;
+            }, 100);
         }
     }
 
