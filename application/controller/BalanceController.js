@@ -1,14 +1,11 @@
 var Controller = require('../../system/Controller.js');
+var Util = require('../../system/Util.js');
 
 module.exports = class BalanceController extends Controller {
 
-    static Arbitrage = require('../model/Arbitrage.js');
     static Currency = require('./Currency.js');
-    static Market = require('./Market.js');
-    static OrderBook = require('./OrderBook.js');
     static Balance = require('./Balance.js');
     static Route = require('./Route.js');
-    static Trade = require('./Trade.js');
     static Order = require('./Order.js');
 
     static output = "";
@@ -112,13 +109,9 @@ module.exports = class BalanceController extends Controller {
 
     static async actionRebalance(uriParts, request, response) {
         if (BalanceController.authenticate(uriParts, request, response)) {
-            await BalanceController.BalanceController.rebalance();
+            await BalanceController.rebalance();
         }
         response.redirect('/');
-    }
-
-    static async actionIndex(uriParts, request, response) {
-        response.send(await BalanceController.Arbitrage.consoleOutput());
     }
 
 };

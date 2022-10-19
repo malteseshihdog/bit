@@ -6,11 +6,11 @@ var Market = require('../model/Market.js');
 
 module.exports = class MarketController extends SecurityController {
 
-    static Arbitrage = require('../model/Arbitrage.js');
+    static Order = require('../model/Order.js');
 
     static async actionCancelAll(uriParts, request, response) {
         if (MarketController.authenticate(uriParts, request, response)) {
-            await MarketController.Arbitrage.Order.cancelAll();
+            await MarketController.Order.cancelAll();
         }
         response.redirect('/');
     }
