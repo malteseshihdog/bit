@@ -1,12 +1,26 @@
-var Model = require('../../system/Model.js');
+var ExchangeModel = require('../../system/ExchangeModel.js');
 var Currency = require('./Currency.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var Util = require('../../system/Util.js');
 
-module.exports = class Balance extends Model {
+module.exports = class Balance extends ExchangeModel {
 
+    /**
+     * @static
+     * @property {Balance[]} list 
+     */
     static list = [];
+    
+    /**
+     * @static
+     * @property {NodeJS.Timer} interval
+     */
     static interval;
+    
+    /**
+     * @static
+     * @property {boolean} getting 
+     */
     static getting = false;
 
     start = {};
@@ -96,6 +110,8 @@ module.exports = class Balance extends Model {
 
     /**
      * Update balance list with balance response from bittrex
+     * 
+     * @TODO Implement many exchanges
      * 
      * @param {Object} balances
      * @returns {undefined}

@@ -1,11 +1,13 @@
-var Model = require('../../system/Model.js');
+var ExchangeModel = require('../../system/ExchangeModel.js');
 var Trade = require('./Trade.js');
 var OrderBook = require('./OrderBook.js');
 var Currency = require('./Currency.js');
+
+// @TODO Abstract many exchanges
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var BittrexSocket = require('../../exchange/bittrex/BittrexSocket.js');
 
-module.exports = class Market extends Model {
+module.exports = class Market extends ExchangeModel {
 
     static socket = null;
 
@@ -84,11 +86,25 @@ module.exports = class Market extends Model {
      */
     takerFee = 0;
 
+    /**
+     * @property {Market[]} list 
+     */
     static list = [];
 
+    /**
+     * @property {NodeJS.Timer} tickerInterval 
+     */
     static tickerInterval = null;
 
+    /**
+     * @property {NodeJS.Timer} updateInterval
+     */
     static updateInterval = null;
+
+    /**
+     * @property {NodeJS.Timer} subscribeSocketTimeout
+     */
+    static subscribeSocketTimeout;
 
     /**
      * Initialize markets
@@ -125,35 +141,6 @@ module.exports = class Market extends Model {
      */
     static push(market) {
         Market.list.push(market);
-    }
-
-    /**
-     * Get a list of markets that are allowed to trade
-     * 
-     * @returns {Array|Market[]}
-     */
-    static getUsedMarkets() {
-        var markets = [];
-        for (var i in Market.list) {
-            if (Market.list[i].canTrade()) {
-                Market.push(Market.list[i]);
-            }
-        }
-        return markets;
-    }
-
-    /**
-     * List of market symbols that are allowed to trade
-     * 
-     * @returns {Array|String[]}
-     */
-    static getUsedMarketSymbols() {
-        var marketSymbols = [];
-        var markets = Market.getUsedMarkets();
-        for (var i in markets) {
-            marketSymbols.push(markets[i].symbol);
-        }
-        return marketSymbols;
     }
 
     /**
@@ -558,6 +545,13 @@ module.exports = class Market extends Model {
         }
     }
 
+    /**
+     * Update market fees
+     * 
+     * @TODO implement many exchanges
+     * 
+     * @returns {undefined}
+     */
     static async updateFees() {
         try {
             var fees = await Bittrex.getAccountFees();
@@ -573,6 +567,13 @@ module.exports = class Market extends Model {
         }
     }
 
+    /**
+     * Update min trade sizes
+     * 
+     * @TODO implement many exchanges
+     * 
+     * @returns {undefined}
+     */
     static async updateMinTradeSize() {
         try {
             let markets = await Bittrex.markets();
@@ -587,12 +588,26 @@ module.exports = class Market extends Model {
         }
     }
 
+    /**
+     * Poll tickers web requests
+     * 
+     * @TODO refactor 'uodateInterval' to updateTimeout
+     * 
+     * @returns {undefined}
+     */
     static subscribeTickers() {
         clearInterval(Market.tickerInterval);
         Market.updateTickers();
-        Market.tickerInterval = setInterval(Market.updateTickers, Market.config('updateInterval'));
+        Market.tickerInterval = setInterval(Market.subscribeTickers, Market.config('updateInterval'));
     }
 
+    /**
+     * Update market tickers
+     * 
+     * @TODO implement many exchanges
+     * 
+     * @returns {undefined}
+     */
     static async updateTickers() {
         try {
             var tickers = await Bittrex.marketTickers();
@@ -607,8 +622,13 @@ module.exports = class Market extends Model {
         }
     }
 
-    static subscribeSocketTimeout;
-
+    /**
+     * Subscribe all market socket tickers
+     * 
+     * @TODO implement many exchanges
+     * 
+     * @returns {undefined}
+     */
     static subscribeSocket() {
         clearTimeout(Market.subscribeSocketTimeout);
         var channels = [];
@@ -621,18 +641,21 @@ module.exports = class Market extends Model {
         Market.subscribeSocketTimeout = setTimeout(Market.subscribeSocket, 600000); // resubscrivbe sockets every 10 minutes
     }
 
-    static updateInterval;
-
-    static subscribeFeesAndMinTradeSizes() {
-        clearInterval(Market.updateInterval);
-        Market.updateFeesInterval = setInterval(Market.updateFeesAndMinTradeSizes, 600000); // get fees and min sizes every 10 minutes
-    }
-
-    static async updateFeesAndMinTradeSizes() {
+    static async subscribeFeesAndMinTradeSizes() {
+        clearTimeout(Market.updateFeesTimeout);
         await Market.updateFees();
         await Market.updateMinTradeSize();
+        Market.updateFeesTimeout = setTimeout(Market.subscribeFeesAndMinTradeSizes, 600000); // get fees and min sizes every 10 minutes
     }
 
+    /**
+     * Update tickers
+     * 
+     * @TODO make Ticker model
+     * 
+     * @param {Object} ticker
+     * @returns {undefined}
+     */
     static async updateSocketTickers(ticker) {
         var market = Market.getBySymbol(ticker.symbol);
         if (market) {

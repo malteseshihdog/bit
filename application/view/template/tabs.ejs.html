@@ -19,9 +19,7 @@
         </div>
         <div id="balances">
             <div class="text-right">
-                <button class="button" onclick="if (confirm('Are you sure you want to balance your currencies? Balances will be traded to USDT and traded back balanced on how many routes the currency has open. You will pay commission for each trade.')) {
-                            $.get('/arbitrage/rebalance');
-                        }">Balance book</button>
+                <button class="button" onclick="if(confirm('Are you sure you want to balance your currencies? Balances will be traded to USDT and traded back balanced on how many routes the currency has open. You will pay commission for each trade.')) { $.get('/balance/rebalance', function(data) { alert('request sent.'); }); }">Balance book</button>
             </div>
             <div class="balances"></div>
         </div>
@@ -30,9 +28,7 @@
         </div>
         <div id="orders">
             <div class="text-right">
-                <button class="button" onclick="if (confirm('Are you sure you want to cancel all your orders?')) {
-                            $.get('/arbitrage/cancelAll');
-                        }">Cancel all</button>
+                <button class="button" onclick="if(confirm('Are you sure you want to cancel all your orders?')) { $.get('/order/cancelAll', function(data) { alert('request sent.'); }); }">Cancel all</button>
             </div>
             <div class="orders"></div>
         </div>

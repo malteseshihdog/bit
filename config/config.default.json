@@ -68,8 +68,5 @@
     "Security": {
         "salt" : null,
         "pepper" : null
-    },
-    "Setup": {
-        "doneFirstTime" : ""
     }
 }

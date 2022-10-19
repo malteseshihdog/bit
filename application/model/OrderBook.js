@@ -1,7 +1,7 @@
-var Model = require('../../system/Model.js');
+var ExchangeModel = require('../../system/ExchangeModel.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 
-module.exports = class OrderBook extends Model  {
+module.exports = class OrderBook extends ExchangeModel  {
 
     market = null;
     ask = 0;

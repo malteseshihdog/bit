@@ -1,7 +1,7 @@
-var Model = require('../../system/Model.js');
+var ExchangeModel = require('../../system/ExchangeModel.js');
 
 
-module.exports = class Arbitrage extends Model {
+module.exports = class Arbitrage extends ExchangeModel {
 
     static Currency = require('./Currency.js');
     static Market = require('./Market.js');

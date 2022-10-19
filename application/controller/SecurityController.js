@@ -69,11 +69,11 @@ module.exports = class SecurityController extends Controller {
                 }, 1000);
             } else {
                 console.log("Request Create Error Set Bittrex Settings...");
-                View.render('security/bittrex-settings', {error: !request.body.apikey || !request.body.apisecret}, response);
+                View.render('security/bittrex-config', {error: !request.body.apikey || !request.body.apisecret}, response);
             }
         } else {
             console.log("Request Create Set Bittrex Settings...");
-            View.render('security/bittrex-settings', {error: false}, response);
+            View.render('security/bittrex-config', {error: false}, response);
         }
     }
 

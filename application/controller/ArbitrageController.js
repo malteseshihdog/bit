@@ -4,7 +4,6 @@ var View = require('../../system/View.js');
 module.exports = class ArbitrageController extends SecurityController {
 
     static Arbitrage = require('../model/Arbitrage.js');
-    static BookBalancer = require('../model/BookBalancer.js');
 
     static async actionIndex(uriParts, request, response) {
         if (ArbitrageController.authenticate(uriParts, request, response)) {
@@ -12,24 +11,6 @@ module.exports = class ArbitrageController extends SecurityController {
         } else {
             response.redirect('/');
         }
-    }
-
-    static async actionCancelAll(uriParts, request, response) {
-        if (ArbitrageController.authenticate(uriParts, request, response)) {
-            await ArbitrageController.Arbitrage.Order.cancelAll();
-        }
-        response.redirect('/');
-    }
-
-    static async actionRebalance(uriParts, request, response) {
-        if (ArbitrageController.authenticate(uriParts, request, response)) {
-            await ArbitrageController.BookBalancer.rebalance();
-        }
-        response.redirect('/');
-    }
-    static async actionTradeToBtc(uriParts, request, response) {
-        await ArbitrageController.BookBalancer.closeOrders();
-        await ArbitrageController.BookBalancer.tradeToBtc();
     }
 
     static async socketIndex(socket, packet) {
@@ -50,7 +31,7 @@ module.exports = class ArbitrageController extends SecurityController {
                 ArbitrageController.Arbitrage.start();
             }
             console.log("Request abritrage...");
-            View.render('arbitrage/routes', {}, response);
+            View.render('template/tabs', {}, response);
         } else {
             ArbitrageController.actionLogin(uriParts, request, response);
         }

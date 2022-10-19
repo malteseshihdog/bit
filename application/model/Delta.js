@@ -1,9 +1,9 @@
-var Model = require('../../system/Model.js');
+var ExchangeModel = require('../../system/ExchangeModel.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 var Market = require('./Market.js');
 
-module.exports = class Delta extends Model {
+module.exports = class Delta extends ExchangeModel {
 
     /**
      * @static
@@ -12,7 +12,7 @@ module.exports = class Delta extends Model {
     static trading = false;
 
     /**
-     * @@property {Route} route 
+     * @property {Route} route 
      */
     route = null;
     

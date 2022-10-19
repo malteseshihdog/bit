@@ -8,7 +8,8 @@ function registerForms() {
             url: form.attr('action'),
             data: form.serialize(),
             beforeSend: function() {
-                $("input[type='submit']").val("Loading...")
+                $("button[type='submit']").width(parseFloat($("button[type='submit']").width()) + "px");
+                $("button[type='submit']").html('<i class="fa fa-spinner animate-spin"></i>');
             },
             success: function (data) {
                 render(data, form.attr('id'));

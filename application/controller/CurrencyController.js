@@ -14,7 +14,7 @@ module.exports = class CurrencyController extends SecurityController {
         if (CurrencyController.authenticate(uriParts, request, response)) {
             var allCurrencies = Currency.list;
             if (request.body['symbol[]'] !== undefined) {
-                console.log('Update allowed currencies...')
+                console.log('Update allowed currencies...');
                 Currency.setConfig('allow', request.body['symbol[]']);
                 Currency.commitConfig();
                 ArbitrageController.Arbitrage.Route.init();

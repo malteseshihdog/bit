@@ -1,11 +1,11 @@
-var Model = require('../../system/Model.js');
+var ExchangeModel = require('../../system/ExchangeModel.js');
 var Trade = require('./Trade.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var Util = require('../../system/Util.js');
 
-module.exports = class Trade extends Model {
+module.exports = class Trade extends ExchangeModel {
 
     market = null;
     inputCurrency = null;

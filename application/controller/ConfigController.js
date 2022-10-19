@@ -71,7 +71,7 @@ module.exports = class ConfigController extends SecurityController {
             Bittrex.setConfig('subaccountid', request.body.subAccountId);
             Delta.commitConfig();
             console.log('Update config...');
-            if (request.body.length > 0) {
+            if (Object.keys(request.body).length > 0) {
                 setTimeout(function () {
                     View.render('config/config', {trade: Trade, route: Route, delta: Delta, bittrex: Bittrex, confirmPasswordError: confirmPasswordError, passwordNotMatchError: passwordNotMatchError}, response);
                 }, 2000);

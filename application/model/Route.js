@@ -1,4 +1,4 @@
-var Model = require('../../system/Model.js');
+var ExchangeModel = require('../../system/ExchangeModel.js');
 var Balance = require('./Balance.js');
 var Market = require('./Market.js');
 var Currency = require('./Currency.js');
@@ -8,7 +8,7 @@ var Util = require('../../system/Util.js');
 /**
  * Route logic
  */
-module.exports = class Route extends Model {
+module.exports = class Route extends ExchangeModel {
 
     static trading = false;
 
@@ -233,6 +233,15 @@ module.exports = class Route extends Model {
         return true;
     }
 
+    /**
+     * Determine whether a route is possible based on three currency symbols
+     * In the case where it's possible a new route is instantiated and returned
+     * 
+     * @param {String} currencySymbolX
+     * @param {String} currencySymbolY
+     * @param {String} currencySymbolZ
+     * @returns {Route|Underfined}
+     */
     static possible(currencySymbolX, currencySymbolY, currencySymbolZ) {
         var currencyX = Currency.getBySymbol(currencySymbolX);
         var currencyY = Currency.getBySymbol(currencySymbolY);
