@@ -6,6 +6,15 @@ var Market = require('../model/Market.js');
 
 module.exports = class MarketController extends SecurityController {
 
+    static Arbitrage = require('../model/Arbitrage.js');
+
+    static async actionCancelAll(uriParts, request, response) {
+        if (MarketController.authenticate(uriParts, request, response)) {
+            await MarketController.Arbitrage.Order.cancelAll();
+        }
+        response.redirect('/');
+    }
+
     static actionIndex(uriParts, request, response) {
         View.render('template/base', {socketServerPort: SocketServer.config('port')}, response);
     }
