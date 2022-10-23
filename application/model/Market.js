@@ -1,4 +1,4 @@
-var ExchangeModel = require('../../system/ExchangeModel.js');
+var HasExchange = require('./HasExchange.js');
 var Trade = require('./Trade.js');
 var OrderBook = require('./OrderBook.js');
 var Currency = require('./Currency.js');
@@ -7,9 +7,9 @@ var Currency = require('./Currency.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var BittrexSocket = require('../../exchange/bittrex/BittrexSocket.js');
 
-module.exports = class Market extends ExchangeModel {
+module.exports = class Market extends HasExchange {
 
-    static socket = null;
+
 
     /**
      * @property {String} symbol 
@@ -177,10 +177,11 @@ module.exports = class Market extends ExchangeModel {
      * Constructor for market
      * 
      * @param {Object} market Bittrex market response object
+     * @param {Exchange} exchange
      * @returns {Market}
      */
-    constructor(market) {
-        super();
+    constructor(market, exchange) {
+        super(exchange);
         Object.assign(this, market);
         this.getCurrencies();
         this.orderBook = new OrderBook(this);

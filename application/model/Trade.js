@@ -1,11 +1,11 @@
-var ExchangeModel = require('../../system/ExchangeModel.js');
+var HasExchange = require('./HasExchange.js');
 var Trade = require('./Trade.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var Util = require('../../system/Util.js');
 
-module.exports = class Trade extends ExchangeModel {
+module.exports = class Trade extends HasExchange {
 
     market = null;
     inputCurrency = null;
@@ -59,9 +59,19 @@ module.exports = class Trade extends ExchangeModel {
         return output + "</table>";
     }
 
-    constructor(market, inputCurrency, outputCurrency, inputQuantity, price, outputQuantity) {
-        super();
-
+    /**
+     * 
+     * @param {Market} market
+     * @param {Currency} inputCurrency
+     * @param {Currency} outputCurrency
+     * @param {Float} inputQuantity
+     * @param {Float} price
+     * @param {Float} outputQuantity
+     * @param {Exchange} exchange
+     * @returns {Trade}
+     */
+    constructor(market, inputCurrency, outputCurrency, inputQuantity, price, outputQuantity, exchange) {
+        super(exchange);
 
         this.createdAt = Date.now();
         this.market = market;
@@ -71,6 +81,7 @@ module.exports = class Trade extends ExchangeModel {
         this.outputQuantity = outputQuantity;
         this.price = price;
         this.getTradeQuantity();
+        
         return this;
     }
 

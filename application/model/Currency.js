@@ -1,31 +1,7 @@
-var ExchangeModel = require('../../system/ExchangeModel.js');
+var HasExchange = require('./HasExchange.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 
-module.exports = class Currency extends ExchangeModel {
-
-    /**
-     * @static
-     * @property {Currency} BTC 
-     */
-    static BTC;
-
-    /**
-     * @static
-     * @property {Currency} USDT 
-     */
-    static USDT;
-
-    /**
-     * @static
-     * @property {Currency} BASE 
-     */
-    static BASE;
-
-    /**
-     * @static
-     * @property {Array|Currency[]} list
-     */
-    static list = [];
+module.exports = class Currency extends HasExchange {
 
     /**
      * @property {String} symbol 
@@ -81,42 +57,35 @@ module.exports = class Currency extends ExchangeModel {
      * Init currencies
      * @returns {undefined}
      */
-    static async init() {
-        console.log('Inititialize Currency...');
-        return this.getAll();
+    static async init(exchange) {
+        console.log('Inititialize Currency ' + exchange.name);
+        return this.getAll(exchange);
     }
 
     /**
      * Get currencies from Bittrex
      * @returns {undefined}
      */
-    static async getAll() {
-        let currencies = await Bittrex.currencies();
+    static async getAll(exchange) {
+        let currencies = await exchange.currencies();
         for (var i in currencies) {
-            var currency = new Currency(currencies[i]);
-            Currency.push(currency);
+            var currency = new Currency(currencies[i], exchange);
+            exchange.currencyList.push(currency);
         }
     }
 
     /**
      * @returns {Currency}
      */
-    static getBtc() {
-        return Currency.BTC;
+    getBtc() {
+        return this.exchange.Currency.BTC;
     }
 
     /**
      * @returns {Currency}
      */
-    static getUsdt() {
-        return Currency.USDT;
-    }
-
-    /**
-     * @returns {Currency}
-     */
-    static getBase() {
-        return Currency.BASE;
+    getUsdt() {
+        return this.exchange.Currency.USDT;
     }
 
     /**
@@ -124,21 +93,14 @@ module.exports = class Currency extends ExchangeModel {
      * @param {string} symbol
      * @returns {Currency}
      */
-    static getBySymbol(symbol) {
-        for (var i in this.list) {
-            if (this.list[i].symbol === symbol) {
-                return this.list[i];
+    static getBySymbol(symbol, exchange) {
+        exchange = exchange || this.exchange;
+        for (var i in exchange.currencyList) {
+            if (exchange.currencyList[i].symbol === symbol) {
+                return exchange.currencyList[i];
             }
         }
         return null;
-    }
-
-    /**
-     * Configured base currency
-     * @returns {String}
-     */
-    static getBaseSymbol() {
-        return this.config('base') || 'BTC';
     }
 
     /**
@@ -163,20 +125,18 @@ module.exports = class Currency extends ExchangeModel {
      * Instantiate a new Currency
      * 
      * @param {Object} currency Bittrex currency response object
+     * @param {Exchange} exchange
      * @returns {Currency}
      */
-    constructor(currency) {
-        super();
+    constructor(currency, exchange) {
+        super(exchange);
         Object.assign(this, currency);
 
         if (this.isBtc()) {
-            Currency.BTC = this;
+            exchange.BTC = this;
         }
         if (this.isUsdt()) {
-            Currency.USDT = this;
-        }
-        if (this.isBase()) {
-            Currency.BASE = this;
+            exchange.USDT = this;
         }
         return this;
     }

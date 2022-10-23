@@ -8,7 +8,7 @@ var existsSync = util.promisify(fs.existsSync);
 module.exports = class View extends Configurable {
 
     static render(view, variables, response, callback) {
-        ejs.renderFile('./application/view/' + view + '.ejs.html', variables ? variables : {}, 'utf8', (error, data) => {
+        ejs.renderFile('./application/view/' + view + '.ejs', variables ? variables : {}, 'utf8', (error, data) => {
             if (data) {
                 response.send(data);
             }

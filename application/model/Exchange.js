@@ -1,6 +1,36 @@
-const Configurable = require('../system/Configurable.js');
+var Model = require('../../system/Model.js');
+var Currency = require('./Currency.js');
 
-class Exchange extends Configurable {
+
+module.exports = class Exchange extends Model {
+
+    static name;
+    
+    static socket = null;
+    
+    /**
+     * @static
+     * @property {Currency} BTC 
+     */
+    static BTC;
+
+    /**
+     * @static
+     * @property {Currency} USDT 
+     */
+    static USDT;
+    
+    static Currency;
+    static Market;
+    static OrderBook;
+    static Balance;
+    static Route;
+    static Trade;
+    static Order;
+    
+    static init() {
+        throw Error("Exhcange init() must be implemnted.");
+    }
 
     static async account() {
 
@@ -117,6 +147,4 @@ class Exchange extends Configurable {
     static async getAccountFeesByMarketSymbol(marketSymbol) {
 
     }
-}
-
-module.exports = Exchange;
+};

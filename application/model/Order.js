@@ -1,10 +1,10 @@
-var ExchangeModel = require('../../system/ExchangeModel.js');
+var HasExchange = require('./HasExchange.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var Currency = require('./Currency.js');
 var Market = require('./Market.js');
 var Util = require('../../system/Util.js');
 
-module.exports = class Order extends ExchangeModel {
+module.exports = class Order extends HasExchange {
 
     canceling = false;
     getting = false;
@@ -115,7 +115,7 @@ module.exports = class Order extends ExchangeModel {
     static async cancelAll() {
         return await new Promise(async (resolve, reject) => {
             for (var i in Order.list) {
-                if(Order.list[i]) {
+                if (Order.list[i]) {
                     await Order.list[i].cancel();
                 }
             }
@@ -123,9 +123,17 @@ module.exports = class Order extends ExchangeModel {
         });
     }
 
-    constructor(order) {
-        super();
+    /**
+     * 
+     * @param {Object} order
+     * @param {Exchange} exchange
+     * @returns {Order}
+     */
+    constructor(order, exchange) {
+        super(exchange);
         Object.assign(this, order);
+        
+        return this;
     }
 
     isAllowed() {
@@ -210,10 +218,10 @@ module.exports = class Order extends ExchangeModel {
         this.canceling = false;
         this.get();
     }
-    
+
     static async cancelAll() {
-        for(var i in Order.list) {
-            if(Order.list[i]) {
+        for (var i in Order.list) {
+            if (Order.list[i]) {
                 await Order.list[i].cancel();
             }
         }

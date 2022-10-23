@@ -1,7 +1,17 @@
-const Exchange = require('../Exchange.js');
+const Exchange = require('../../application/model/Exchange.js');
 const bittrexApiV3 = require('./BittrexRestApi.js');
 
 class Bittrex extends Exchange {
+
+    static async init() {
+        Bittrex.Currency = require('../../application/model/Currency.js');
+        Bittrex.Market = require('../../application/model/Market.js');
+        Bittrex.OrderBook = require('../../application/model/OrderBook.js');
+        Bittrex.Balance = require('../../application/model/Balance.js');
+        Bittrex.Route = require('../../application/model/Route.js');
+        Bittrex.Trade = require('../../application/model/Trade.js');
+        Bittrex.Order = require('../../application/model/Order.js');
+    }
 
     static async account() {
         return await bittrexApiV3.account(

@@ -1,7 +1,7 @@
-var ExchangeModel = require('../../system/ExchangeModel.js');
+var HasExchange = require('./HasExchange.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 
-module.exports = class OrderBook extends ExchangeModel  {
+module.exports = class OrderBook extends HasExchange  {
 
     market = null;
     ask = 0;
@@ -15,10 +15,11 @@ module.exports = class OrderBook extends ExchangeModel  {
     /**
      * 
      * @param {Market} market
+     * @param {Exchange} exchange
      * @returns {OrderBook}
      */
-    constructor(market) {
-        super();
+    constructor(market, exchange) {
+        super(exchange);
         this.market = market;
         OrderBook.list.push(this);
         return this;

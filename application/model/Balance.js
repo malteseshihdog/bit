@@ -1,9 +1,10 @@
 var ExchangeModel = require('../../system/ExchangeModel.js');
 var Currency = require('./Currency.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
+var HasExchange = require('./HasExchange.js');
 var Util = require('../../system/Util.js');
 
-module.exports = class Balance extends ExchangeModel {
+module.exports = class Balance extends HasExchange {
 
     /**
      * @static
@@ -230,11 +231,12 @@ module.exports = class Balance extends ExchangeModel {
 
     /**
      * 
-     * @param {type} balance
+     * @param {Object} balance
+     * @param {Exchange} exchange
      * @returns {Balance}
      */
-    constructor(balance) {
-        super();
+    constructor(balance, exchange) {
+        super(exchange);
         this.update(balance);
         this.startTotal = this.getTotal();
         return this;

@@ -1,7 +1,24 @@
-const Exchange = require('../Exchange.js');
+const Exchange = require('../../application/model/Exchange.js');
 const Binance = require('node-binance-api');
 
 module.exports = class Binance extends Exchange {
+
+    static async init() {
+        Binance.Currency = require('../../application/model/Currency.js');
+        Binance.Market = require('../../application/model/Market.js');
+        Binance.OrderBook = require('../../application/model/OrderBook.js');
+        Binance.Balance = require('../../application/model/Balance.js');
+        Binance.Route = require('../../application/model/Route.js');
+        Binance.Trade = require('../../application/model/Trade.js');
+        Binance.Order = require('../../application/model/Order.js');
+        
+        await Binance.Currency.init(Binance);
+        await Binance.Market.init(Binance);
+        await Binance.OrderBook.init(Binance);
+        await Binance.Balance.init(Binance);
+        await Binance.Order.init(Binance);
+        await Binance.Route.init(Binance);
+    }
 
     static async account() {
         const binance = new Binance().options({

@@ -1,9 +1,9 @@
-var ExchangeModel = require('../../system/ExchangeModel.js');
+var HasExchange = require('./HasExchange.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 var Market = require('./Market.js');
 
-module.exports = class Delta extends ExchangeModel {
+module.exports = class Delta extends HasExchange {
 
     /**
      * @static
@@ -52,10 +52,11 @@ module.exports = class Delta extends ExchangeModel {
      * @param {Route} route
      * @param {Currency} inputCurrency
      * @param {Currency} outputCurrency
+     * @param {Exchange} exchange
      * @returns {Delta}
      */
-    constructor(route, inputCurrency, outputCurrency) {
-        super();
+    constructor(route, inputCurrency, outputCurrency, exchange) {
+        super(exchange);
 
         this.route = route;
         this.inputCurrency = inputCurrency;

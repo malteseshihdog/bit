@@ -1,4 +1,4 @@
-var ExchangeModel = require('../../system/ExchangeModel.js');
+var HasExchange = require('./HasExchange.js');
 var Balance = require('./Balance.js');
 var Market = require('./Market.js');
 var Currency = require('./Currency.js');
@@ -8,7 +8,7 @@ var Util = require('../../system/Util.js');
 /**
  * Route logic
  */
-module.exports = class Route extends ExchangeModel {
+module.exports = class Route extends HasExchange {
 
     static trading = false;
 
@@ -154,8 +154,16 @@ module.exports = class Route extends ExchangeModel {
         return Route.getTradingRoute().length > 0;
     }
 
-    constructor(currencyX, currencyY, currencyZ) {
-        super();
+    /**
+     * 
+     * @param {Currency} currencyX
+     * @param {Currency} currencyY
+     * @param {Currency} currencyZ
+     * @param {Exchange} exchange
+     * @returns {Route}
+     */
+    constructor(currencyX, currencyY, currencyZ, exchange) {
+        super(exchange);
 
         this.currencyX = currencyX;
         this.currencyY = currencyY;
@@ -164,6 +172,8 @@ module.exports = class Route extends ExchangeModel {
         this.deltaChain.push(new Delta(this, this.currencyX, this.currencyY));
         this.deltaChain.push(new Delta(this, this.currencyY, this.currencyZ));
         this.deltaChain.push(new Delta(this, this.currencyZ, this.currencyX));
+        
+        return this;
     }
 
     getInputBtc() {

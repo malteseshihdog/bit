@@ -32,10 +32,18 @@
         ],
         "updateInterval" : 30000
     },
+    "Exchange": {
+        "enabled": ["Bittrex"],
+        "possible": ["Bittrex", "Binance"]
+    },
     "Bittrex": {
         "apikey": "",
         "apisecret": "",
         "subaccountid": ""
+    },
+    "Binance": {
+        "apikey": "",
+        "apisecret": ""
     },
     "WebServer": {
         "port": 80,
