@@ -1,7 +1,7 @@
-var Controller = require('../../system/Controller.js');
+var SecurityController = require('./SecurityController,js');
 var Util = require('../../system/Util.js');
 
-module.exports = class BalanceController extends Controller {
+module.exports = class BalanceController extends SecurityController {
 
     static Currency = require('../model/Currency.js');
     static Balance = require('../model/Balance.js');
