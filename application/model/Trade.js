@@ -99,7 +99,7 @@ module.exports = class Trade extends ExchangeModel {
     }
 
     getQuantity() {
-        return Number.parseFloat(this.tradeQuantity).toFixed(8);
+        return Number.parseFloat(this.tradeQuantity).toFixed(this.market.getPrecision());
     }
 
     getPrice() {
