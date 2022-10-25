@@ -3,10 +3,10 @@ var Util = require('../../system/Util.js');
 
 module.exports = class BalanceController extends Controller {
 
-    static Currency = require('../Model/Currency.js');
-    static Balance = require('../Model/Balance.js');
-    static Route = require('../Model/Route.js');
-    static Order = require('../Model/Order.js');
+    static Currency = require('../model/Currency.js');
+    static Balance = require('../model/Balance.js');
+    static Route = require('../model/Route.js');
+    static Order = require('../model/Order.js');
 
     static output = "";
 
