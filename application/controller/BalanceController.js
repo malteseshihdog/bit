@@ -1,4 +1,4 @@
-var SecurityController = require('./SecurityController,js');
+var SecurityController = require('./SecurityController.js');
 var Util = require('../../system/Util.js');
 
 module.exports = class BalanceController extends SecurityController {
