@@ -286,7 +286,7 @@ module.exports = class Route extends ExchangeModel {
                 await Balance.getAll();
                 Route.trading = false;
                 return false;
-            }, 100);
+            }, 3000);
         }
     }
 
